@@ -1,0 +1,153 @@
+
+// Facebook mobile navigation
+$navWidth: 250px;
+$speed: 0.5s;
+
+body{
+    @include transition-property(left);
+    @include transition-duration($speed);
+    left:0px;
+    width:100%;
+    position:relative;
+
+    &:after{
+        position:absolute;
+        height:150%;
+        width:20px;
+        left:-20px;
+        content:' ';
+        top:-9px;
+        @include box-shadow(inset -8px 0px 10px -4px black);
+    }
+}
+
+#main-nav-facebook{
+
+    min-height:60px;
+    z-index:9999999;
+
+    #facebook-nav{
+
+        width:100%;
+        left:0px;
+        position:relative;
+        height:100%;
+        @include transition-property(left);
+        @include transition-duration($speed);
+
+        ul{
+            @include reset-box;
+            background-color:$color5;
+            @include block-left;
+            li{
+                @include block-left;
+                margin:0;
+                border:none;
+                width:auto;
+
+                a{
+                    text-decoration: none;
+                    color:$color1;
+                    @include em-font(16);
+                    @include em-line-height(16);
+                    padding:20px;
+                    text-align: center;
+                    @include block-left;
+                    overflow:hidden;
+                }
+
+                a:hover{
+                    background-color:$color4;
+                }
+            }
+
+            li.last{
+                border:none;
+            }
+        }
+    }
+
+    .nav-controls{
+        float:left;
+        display:none;
+        padding:10px 0;
+        width:100%;
+        background-color:$color5;
+        left:0px;
+        position:fixed;
+        z-index:9999999;
+        @include transition-property(left);
+        @include transition-duration($speed);
+
+        a{
+            text-decoration: none;
+            outline:none;
+            width:40px;
+            height:40px;
+            background-color: $color2;
+            border:1px solid black;
+            @include block-left;
+            text-indent: 9999px;
+            margin-left:10px;
+        }
+    }
+
+}
+
+body.nav-open{
+    left:0px;
+}
+
+// Change the nav at various break points
+
+// TABLET DOWN
+@media only screen and (max-width: $desktop){
+
+    // styles for when the nav is open
+    body.nav-open{
+
+        overflow:hidden;
+        left:$navWidth;
+        position:fixed;
+
+
+        #main-nav-facebook{
+            #facebook-nav{
+                left:0px;
+            }
+            .nav-controls{
+                left:$navWidth;
+            }
+        }
+    }
+
+
+    #main-nav-facebook{
+
+        margin-bottom:10px;
+        background-color: $color5;
+
+        #facebook-nav{
+            position:fixed;
+            left:-$navWidth;
+            width:$navWidth;
+
+            ul{
+                list-style-type: none;
+
+                li{
+                    border-bottom:1px solid white;
+                    width:100%;
+
+                    a{
+                        width:100%;
+                    }
+                }
+            }
+        }
+
+        .nav-controls{
+            display:block;
+        }
+    }
+}

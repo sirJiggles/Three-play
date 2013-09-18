@@ -1,0 +1,15 @@
+
+.push {
+    height: $footer-height+px;
+    clear:left;
+}
+
+.footer-row{
+	z-index:99;
+	position:relative;
+}
+
+#site-footer{
+    height:$footer-height+px;
+    @include block-left;;
+}

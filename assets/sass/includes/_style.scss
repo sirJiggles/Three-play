@@ -1,0 +1,41 @@
+
+/* ================ MAIN LAYOUT ELEMENTS ================ */
+
+body,html{
+    height:100%;
+}
+
+
+#site-wrapper{
+    height:100%;
+    min-height: 100%;
+    height: auto;
+    margin-bottom:-$footer-height+px;
+    position:relative;
+    overflow:hidden;
+}
+
+*{
+    @include border-box('../assets/js/vendor/border-box.htc');
+}
+
+.row {
+    @include container;
+    
+    .row{
+        margin-left:-$grid-padding;
+        margin-right:-$grid-padding;
+        
+    } // Nudge back nested rows
+
+    @for $i from 1 through $total-columns{
+        .grid-#{$i}{
+            @include span-columns($i);
+                        
+            &.end{
+                @include omega;
+            }
+        }
+
+    }
+}
