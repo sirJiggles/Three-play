@@ -11,6 +11,7 @@
  * @depends app/lib/shape.js
  * @depends app/lib/lights.js
  * @depends app/lib/functions.js
+ * @depends app/lib/controls.js
  * @depends three-test.js
 
  */
@@ -25,6 +26,11 @@ $(window).ready(function () {
     });*/
 
     // CUSTOM APP CODE HERE
+
+    $('.flip').click(function(e){
+		e.preventDefault();
+		$(this).toggleClass('over');
+	});
     
 });
 
@@ -32,4 +38,4 @@ $(window).load(function(){
 
     // External link class JS
     //externalLinks();
-});
+})

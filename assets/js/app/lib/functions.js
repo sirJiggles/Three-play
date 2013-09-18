@@ -1,6 +1,31 @@
 // This is for all generic functions like render
+function moveCam(direction){
+
+	var moveAmount = 5;
+
+	if(direction.left){
+		appVars.camera.position.x  = appVars.camera.position.x - moveAmount;
+		appVars.camera.position.z  = appVars.camera.position.z - moveAmount;
+	}else if(direction.right){
+		appVars.camera.position.x  = appVars.camera.position.x + moveAmount;
+		appVars.camera.position.z  = appVars.camera.position.z + moveAmount;
+	}else if(direction.down){
+
+	}else if(direction.up){
+
+	}else{
+		// do nothing here
+	}
+
+}
+
+
 
 function start(){
+
+
+	// move the cam on the controls
+	addControls(moveCam);
 
 	var angularSpeed = 0.2; 
 	var lastTime = 0;
