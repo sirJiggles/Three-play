@@ -5,8 +5,6 @@
 
 </div>
 
-<canvas id="leap"></canvas>
-
 <!-- the game board -->
 <div class="game-board">
 

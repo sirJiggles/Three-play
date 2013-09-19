@@ -43,8 +43,8 @@ function addGlobes(amount){
  */
 function setObjectPosition(namespace, index, position){
 	var objects = appVars.objects[namespace];
-
-	if (typeof(objects[index] !== undefined)){
+	console.log(index);
+	if (typeof(objects[index].position) !== undefined){
 
 		objects[index].position.x = position.x;
 		objects[index].position.y = position.y;

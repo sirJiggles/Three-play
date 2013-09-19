@@ -21,23 +21,26 @@ $(window).ready(function(){
 	controller.on( 'animationFrame' , function( frame ) {
 
 		// for every hand picked up
-		for( var i = 1; i <= frame.hands.length; i++ ){
+		var fingNum = 1;
+		for( var i = 0; i < frame.hands.length; i++ ){
 
-			var hand = frame.hands[i -1];
+			var hand = frame.hands[i];
 
 			if(hand.palmPosition){
 				var palmPos = getLeapPosition(frame, hand.palmPosition, 100);
-				setObjectPosition('globes', i, palmPos);
+				setObjectPosition('globes', fingNum, palmPos);
+				fingNum ++;
 			}
 			
 			// for every finger on that hand
-			for( var j = 1; j <= hand.fingers.length; j++ ){
+			for( var j = 0; j < hand.fingers.length; j++ ){
 
-			  	var finger = hand.fingers[j -1];
-			  	
+			  	var finger = hand.fingers[j];
+
 			  	if(finger.tipPosition){
 			  		var fingerPos = getLeapPosition(frame, finger.tipPosition, 30);
-			  		setObjectPosition('globes', i+j, fingerPos);
+			  		setObjectPosition('globes', fingNum, fingerPos);
+			  		fingNum ++;
 		  		}
 
 			}
