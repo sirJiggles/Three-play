@@ -32,6 +32,8 @@ function addGlobes(amount){
 	for(var i = 1; i <= amount; i ++){
 		appVars.objects.globes[i] = addSphere(10, 30, 16, globeTexture, true);
 		appVars.objects.globes[i].rotation.x = Math.PI * 0.1;
+		//appVars.objects.globes[i].scale.x  = appVars.width;
+		//appVars.objects.globes[i].scale.y = appVars.height;
 	}
 
 }
@@ -43,18 +45,39 @@ function addGlobes(amount){
  */
 function setObjectPosition(namespace, index, position){
 	var objects = appVars.objects[namespace];
-	console.log(index);
+
 	if (typeof(objects[index].position) !== undefined){
 
-		objects[index].position.x = position.x;
-		objects[index].position.y = position.y;
-		objects[index].position.z = position.z;
+		objects[index].visible = true;
+		objects[index].position.x = position[0];
+		objects[index].position.y = position[1] - (appVars.height / 4);
+		objects[index].position.z = position[2];
 
 		appVars.objects[namespace] = objects;
 
 	}else{
-		logging('could not get array index of object', appVars.objects[namespace], 'Fatal');
+		logging('could not get position of object requested to change position of', appVars.objects[namespace], 'Fatal');
 	}
+}
+
+function hideFromScene(namespace, index){
+
+	var objects = appVars.objects[namespace];
+
+	if(index == 'all'){
+		for(var i = 1; i < objects.length; i ++){
+			objects[i].visible = false;
+		}
+	}else{
+
+		if(typeof(objects[index]) !== undefined){
+			objects[index].visible = false;
+		}else{
+			logging('Could not find object to remove at requested inex', 'index requested: '+index+', object namespace: '+namespace, 'Fatal');
+		}
+	}
+
+	appVars.objects[namespace] = objects;
 }
 
 /* Generic system loggin function */

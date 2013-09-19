@@ -15,5 +15,5 @@ appVars.container.append(appVars.renderer.domElement);
 // create a point light
 addPointLight(0xFFFFFF, 10, 50, 130);
 
-// add ten globes to the scene for the fingers
+// add ten globes to the scene for the fingers and palms
 addGlobes(12);
