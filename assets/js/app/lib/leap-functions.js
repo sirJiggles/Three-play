@@ -2,7 +2,7 @@
 
 
 // used to get the position using the interaction box
-function getLeapPosition(frame, leapPos){
+function getLeapPosition(frame, leapPos, z){
 
 	/* 
 	 * Interaction box will scale to wherever the uses interactions are and will contain the interaction
@@ -17,12 +17,16 @@ function getLeapPosition(frame, leapPos){
   	position.x = leapPos[0] - left,
   	position.y = leapPos[1] - top;
 
-	position.x /= iBox.size[0];
-  	position.y /= iBox.size[1];
 
-  	position.x *= appVars.width;
-  	position.y *= appVars.height;
+	//position.x /= iBox.size[0];
+  	//position.y /= iBox.size[1];
 
+  	//position.x *= appVars.width;
+  	//position.y *= appVars.height;
 
+  	// invert y
+  	//position.y = -position.y;
+
+  	position.z = z;
   	return position;
 }

@@ -1,8 +1,8 @@
 
 // Create our app vars here
 var appVars = {
-	width: 900,
-	height:900,
+	width: $(window).width(),
+	height:$(window).height(),
 	viewAngle:45,
 	near: 0.1,
 	far:1000,

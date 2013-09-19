@@ -43,10 +43,12 @@ function addGlobes(amount){
  */
 function setObjectPosition(namespace, index, position){
 	var objects = appVars.objects[namespace];
+
 	if (typeof(objects[index] !== undefined)){
 
 		objects[index].position.x = position.x;
 		objects[index].position.y = position.y;
+		objects[index].position.z = position.z;
 
 		appVars.objects[namespace] = objects;
 
@@ -92,8 +94,8 @@ function start(){
 			angleChange = angularSpeed * timeDiff * 2 * Math.PI / 1000;
 
 		// rotate all the globes on the anmation loop
-		for(var i = 1; i <= appVars.objects.globes.length; i ++){
-			//appVars.objects.globes[i].rotation.y += angleChange;
+		for(var i = 1; i <= appVars.objects.globes.length -1; i ++){
+			appVars.objects.globes[i].rotation.y += angleChange;
 		}
 
 		lastTime = time;

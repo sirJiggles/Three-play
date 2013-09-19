@@ -26,7 +26,7 @@ $(window).ready(function(){
 			var hand = frame.hands[i -1];
 
 			if(hand.palmPosition){
-				var palmPos = getLeapPosition(frame, hand.palmPosition);
+				var palmPos = getLeapPosition(frame, hand.palmPosition, 100);
 				setObjectPosition('globes', i, palmPos);
 			}
 			
@@ -34,9 +34,9 @@ $(window).ready(function(){
 			for( var j = 1; j <= hand.fingers.length; j++ ){
 
 			  	var finger = hand.fingers[j -1];
-
-			  	if(finger.fingerPosition){
-			  		var fingerPos = getLeapPosition(frame, finger.fingerPosition);
+			  	
+			  	if(finger.tipPosition){
+			  		var fingerPos = getLeapPosition(frame, finger.tipPosition, 30);
 			  		setObjectPosition('globes', i+j, fingerPos);
 		  		}
 
