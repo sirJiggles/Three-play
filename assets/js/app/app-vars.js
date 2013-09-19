@@ -1,15 +1,16 @@
 
 // Create our app vars here
 var appVars = {
-	width: 400,
-	height:300,
+	width: 900,
+	height:900,
 	viewAngle:45,
 	near: 0.1,
 	far:1000,
 	container: $('#three'),
 	renderer: new THREE.WebGLRenderer(),
 	camera: null,
-	scene: new THREE.Scene()
+	scene: new THREE.Scene(),
+	objects: {}
 };
 
 appVars.aspect = appVars.width / appVars.height;
@@ -21,7 +22,3 @@ appVars.camera = new THREE.PerspectiveCamera(
    	appVars.far
 );
 
-// this is where we will stor all objects in the scene
-var objects = {
-
-}

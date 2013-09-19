@@ -1,16 +1,22 @@
 // used for creating shapes
 
-function addSphere(rad, seg, rings, mat){
+function addSphere(rad, seg, rings, mat, dynamic){
 	
 	var sphere = new THREE.Mesh( 
 		new THREE.SphereGeometry(rad, seg, rings),
 		mat
 	);
-	
-	sphere.overdraw = true;
-	sphere.rotation.x = Math.PI * 0.1;
 
+	if(typeof(dynamic) !== undefined && dynamic){
+		sphere.overdraw = true;
+	}
+	
 	appVars.scene.add(sphere);
 
 	return sphere;
+}
+
+function addBlock(){
+
+
 }

@@ -6,14 +6,16 @@
  * 
  * @depends vendor/jquery-1.8.2.min.js
  * @depends vendor/three.js
+ * @depends vendor/leap-motion.js
  * @depends app/app-vars.js
- * @depends app/setup.js
  * @depends app/lib/shape.js
  * @depends app/lib/lights.js
  * @depends app/lib/functions.js
  * @depends app/lib/controls.js
- * @depends three-test.js
-
+ * @depends app/lib/leap-functions.js
+ * @depends app/lib/leap.js
+ * @depends app/setup.js
+ * @depends three-app.js
  */
 
 
@@ -27,6 +29,7 @@ $(window).ready(function () {
 
     // CUSTOM APP CODE HERE
 
+    // fliping the cards
     $('.flip').click(function(e){
 		e.preventDefault();
 		$(this).toggleClass('over');

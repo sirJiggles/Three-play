@@ -19,13 +19,57 @@ function moveCam(direction){
 
 }
 
+function addGlobes(amount){
+
+	var globeTexture = new THREE.MeshBasicMaterial({    
+	    map: THREE.ImageUtils.loadTexture( 'assets/img/globe.jpeg', new THREE.UVMapping(), function() {
+
+	    } )
+	});
+
+	appVars.objects.globes = new Array();
+
+	for(var i = 1; i <= amount; i ++){
+		appVars.objects.globes[i] = addSphere(10, 30, 16, globeTexture, true);
+		appVars.objects.globes[i].rotation.x = Math.PI * 0.1;
+	}
+
+}
+
+/*
+ * this is a function for updating an objects position on the scene
+ * the namespace is the object type the index is the index of that type we want to move
+ * and the position is the new position on the scene we want 
+ */
+function setObjectPosition(namespace, index, position){
+	var objects = appVars.objects[namespace];
+	if (typeof(objects[index] !== undefined)){
+
+		objects[index].position.x = position.x;
+		objects[index].position.y = position.y;
+
+		appVars.objects[namespace] = objects;
+
+	}else{
+		logging('could not get array index of object', appVars.objects[namespace], 'Fatal');
+	}
+}
+
+/* Generic system loggin function */
+function logging(msg, data, lvl){
+	console.log('There was a system error: '+msg);
+	console.log('Data that fired the error: ');
+	console.log(data);
+	console.log('Lvl of error message: '+lvl);
+}
+	
 
 
 function start(){
 
 
 	// move the cam on the controls
-	addControls(moveCam);
+	//addControls(moveCam);
 
 	var angularSpeed = 0.2; 
 	var lastTime = 0;
@@ -47,7 +91,10 @@ function start(){
 			timeDiff = time - lastTime,
 			angleChange = angularSpeed * timeDiff * 2 * Math.PI / 1000;
 
-		objects.sphere.rotation.y += angleChange;
+		// rotate all the globes on the anmation loop
+		for(var i = 1; i <= appVars.objects.globes.length; i ++){
+			//appVars.objects.globes[i].rotation.y += angleChange;
+		}
 
 		lastTime = time;
 
