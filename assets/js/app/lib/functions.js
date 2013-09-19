@@ -1,23 +1,4 @@
-// This is for all generic functions like render
-function moveCam(direction){
 
-	var moveAmount = 5;
-
-	if(direction.left){
-		appVars.camera.position.x  = appVars.camera.position.x - moveAmount;
-		appVars.camera.position.z  = appVars.camera.position.z - moveAmount;
-	}else if(direction.right){
-		appVars.camera.position.x  = appVars.camera.position.x + moveAmount;
-		appVars.camera.position.z  = appVars.camera.position.z + moveAmount;
-	}else if(direction.down){
-
-	}else if(direction.up){
-
-	}else{
-		// do nothing here
-	}
-
-}
 
 function addGlobes(amount){
 
@@ -32,70 +13,8 @@ function addGlobes(amount){
 	for(var i = 1; i <= amount; i ++){
 		appVars.objects.globes[i] = addSphere(10, 30, 16, globeTexture, true);
 		appVars.objects.globes[i].rotation.x = Math.PI * 0.1;
-		//appVars.objects.globes[i].scale.x  = appVars.width;
-		//appVars.objects.globes[i].scale.y = appVars.height;
 	}
 
-}
-
-/*
- * this is a function for updating an objects position on the scene
- * the namespace is the object type the index is the index of that type we want to move
- * and the position is the new position on the scene we want 
- */
-function setObjectPosition(namespace, index, position){
-	var objects = appVars.objects[namespace];
-
-	if (objects[index].position){
-
-		objects[index].visible = true;
-		objects[index].position.x = position[0];
-		objects[index].position.y = position[1] - (appVars.height / 4);
-		objects[index].position.z = position[2];
-
-		appVars.objects[namespace] = objects;
-
-	}else{
-		logging('could not get position of object requested to change position of', appVars.objects[namespace], 'Fatal');
-	}
-}
-
-function setModelPosition(name, position){
-	var model = appVars.models[name];
-	
-	if (model.position){
-
-		model.visible = true;
-		model.position.x = position[0];
-		model.position.y = position[1] - (appVars.height / 4);
-		model.position.z = position[2];
-
-		appVars.models[name] = model;
-
-	}else{
-		logging('could not get position of model requested to change position of', name, 'Fatal');
-	}
-}
-
-// hide objects from the three scene
-function hideFromScene(namespace, index){
-
-	var objects = appVars.objects[namespace];
-
-	if(index == 'all'){
-		for(var i = 1; i < objects.length; i ++){
-			objects[i].visible = false;
-		}
-	}else{
-
-		if(typeof(objects[index]) !== undefined){
-			objects[index].visible = false;
-		}else{
-			logging('Could not find object to remove at requested inex', 'index requested: '+index+', object namespace: '+namespace, 'Fatal');
-		}
-	}
-
-	appVars.objects[namespace] = objects;
 }
 
 // simulate dom clicks
@@ -114,44 +33,3 @@ function logging(msg, data, lvl){
 	console.log('Lvl of error message: '+lvl);
 }
 	
-
-
-function start(){
-
-
-	// move the cam on the controls
-	//addControls(moveCam);
-
-	var angularSpeed = 0.2; 
-	var lastTime = 0;
-
-	// shim layer with setTimeout fallback
-	window.requestAnimFrame = (function(){
-	  return  window.requestAnimationFrame       ||
-	          window.webkitRequestAnimationFrame ||
-	          window.mozRequestAnimationFrame    ||
-	          function(callback){
-	            window.setTimeout(callback, 1000 / 60);
-	          };
-	})();
-
-	(function animloop(){
-		requestAnimFrame(animloop);
-
-		var time = (new Date()).getTime(),
-			timeDiff = time - lastTime,
-			angleChange = angularSpeed * timeDiff * 2 * Math.PI / 1000;
-
-		// rotate all the globes on the anmation loop
-		for(var i = 1; i <= appVars.objects.globes.length -1; i ++){
-			appVars.objects.globes[i].rotation.y += angleChange;
-		}
-
-		//appVars.models[0].rotation.y += angleChange;
-
-		lastTime = time;
-
-		appVars.renderer.render(appVars.scene, appVars.camera);
-	})();
-
-}

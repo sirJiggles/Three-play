@@ -12,35 +12,18 @@
  * @depends app/lib/shape.js
  * @depends app/lib/lights.js
  * @depends app/lib/functions.js
- * @depends app/lib/controls.js
+ * @depends app/lib/model-operations.js
+ * @depends app/lib/object-operations.js
  * @depends app/lib/leap-functions.js
  * @depends app/lib/leap.js
  * @depends app/lib/file-loader.js
  * @depends app/setup.js
- * @depends three-app.js
  */
 
 
-$(window).ready(function () {
-    
-     // Generic resize function
-    /*$(window).resize(function(){
-        clearTimeout(appVars.resizeTimer);
-        appVars.resizeTimer = setTimeout(resizeWindowCallback, 500);
-    });*/
+$(window).load(function () {
 
-    // CUSTOM APP CODE HERE
-
-    // fliping the cards
-    $('.flip').click(function(e){
-		e.preventDefault();
-		$(this).toggleClass('over');
-	});
+    // BOOM!
+    start();
     
 });
-
-$(window).load(function(){
-
-    // External link class JS
-    //externalLinks();
-})
