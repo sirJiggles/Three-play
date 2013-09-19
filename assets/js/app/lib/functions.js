@@ -46,7 +46,7 @@ function addGlobes(amount){
 function setObjectPosition(namespace, index, position){
 	var objects = appVars.objects[namespace];
 
-	if (typeof(objects[index].position) !== undefined){
+	if (objects[index].position){
 
 		objects[index].visible = true;
 		objects[index].position.x = position[0];
@@ -60,6 +60,24 @@ function setObjectPosition(namespace, index, position){
 	}
 }
 
+function setModelPosition(name, position){
+	var model = appVars.models[name];
+	
+	if (model.position){
+
+		model.visible = true;
+		model.position.x = position[0];
+		model.position.y = position[1] - (appVars.height / 4);
+		model.position.z = position[2];
+
+		appVars.models[name] = model;
+
+	}else{
+		logging('could not get position of model requested to change position of', name, 'Fatal');
+	}
+}
+
+// hide objects from the three scene
 function hideFromScene(namespace, index){
 
 	var objects = appVars.objects[namespace];
@@ -78,6 +96,14 @@ function hideFromScene(namespace, index){
 	}
 
 	appVars.objects[namespace] = objects;
+}
+
+// simulate dom clicks
+function simulateClick(pos){
+	//console.log('clicking at: '+pos[0]+' '+pos[1]);
+	//console.log( pos );
+	//console.log( $(document.elementFromPoint(pos[0], pos[1])) );
+	//$(document.elementFromPoint(pos[0], pos[1])).click(); 
 }
 
 /* Generic system loggin function */
@@ -120,6 +146,8 @@ function start(){
 		for(var i = 1; i <= appVars.objects.globes.length -1; i ++){
 			appVars.objects.globes[i].rotation.y += angleChange;
 		}
+
+		//appVars.models[0].rotation.y += angleChange;
 
 		lastTime = time;
 

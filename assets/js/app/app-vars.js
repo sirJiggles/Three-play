@@ -10,7 +10,8 @@ var appVars = {
 	renderer: new THREE.WebGLRenderer(),
 	camera: null,
 	scene: new THREE.Scene(),
-	objects: {}
+	objects: {},
+	models: new Array()
 };
 
 appVars.aspect = appVars.width / appVars.height;

@@ -9,14 +9,13 @@ body,html{
 #site-wrapper{
     height:100%;
     min-height: 100%;
-    height: auto;
-    margin-bottom:-$footer-height+px;
-    position:relative;
+    //margin-bottom:-$footer-height+px;
+    //position:relative;
     overflow:hidden;
 }
 
 *{
-    @include border-box('../assets/js/vendor/border-box.htc');
+    @include border-box('assets/js/vendor/border-box.htc');
 }
 
 .row {
@@ -43,9 +42,9 @@ body,html{
 #three{
     position:absolute;
     width:100%;
-    top:0px;
+    top:-3px;
     left:0px;
-    z-index:999999;
+    //z-index:999999;
 }
 
 .game-board{

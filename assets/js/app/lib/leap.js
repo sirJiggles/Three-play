@@ -2,7 +2,9 @@
 
 $(window).ready(function(){
 	
-	var controller = new Leap.Controller();
+	var controller = new Leap.Controller({ enableGestures: true });
+
+	//controller.enable_gesture(Leap.Gesture.Type.KeyTapGesture);
 
 	controller.on('connect', function(){
 
@@ -17,8 +19,43 @@ $(window).ready(function(){
 		// clear the globes from the scene
 		hideFromScene('globes', 'all');
 
+
 	 	for (var i = 0; i < frame.pointables.length; i++) {
 			setObjectPosition('globes', i + 1, frame.pointables[i].tipPosition);
+		}
+
+		for (var i = 0; i < frame.hands.length; i ++){
+			setModelPosition('x-wing', frame.hands[i].palmPosition);
+		}
+
+
+		// handle gestures 
+		for( var i =  0; i < frame.gestures.length; i++){
+	    	var gesture  = frame.gestures[0];
+
+		    var type = gesture.type;
+          
+		  	switch( type ){
+
+			    case "circle":
+			     
+			      break;
+			      
+			    case "swipe":
+			      
+			      break;
+
+			    case "screenTap":
+			      
+			      break;
+
+			    case "keyTap":
+			    	console.log(gesture);
+			    	//console.log(gesture.leap.convert(gesture.position));
+			      	//simulateClick(gesture.position);
+			      break;
+
+		  	}
 		}
   	});
 

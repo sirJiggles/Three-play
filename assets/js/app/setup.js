@@ -1,3 +1,4 @@
+loadModel('assets/models/x-wing.dae', 0.3, 'x-wing');
 
 // add the camera to the scene
 appVars.scene.add(appVars.camera);

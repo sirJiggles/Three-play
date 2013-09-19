@@ -311,22 +311,20 @@ textarea {
     padding: 0;
   }
 }
-.push {
-  height: 20px;
-  clear: left;
+/*.push {
+    height: $footer-height+px;
+    clear:left;
 }
 
-.footer-row {
-  z-index: 99;
-  position: relative;
+.footer-row{
+	z-index:99;
+	position:relative;
 }
 
-#site-footer {
-  height: 20px;
-  display: block;
-  float: left;
-}
-
+#site-footer{
+    height:$footer-height+px;
+    @include block-left;;
+}*/
 /* ================ MAIN LAYOUT ELEMENTS ================ */
 body, html {
   height: 100%;
@@ -335,9 +333,6 @@ body, html {
 #site-wrapper {
   height: 100%;
   min-height: 100%;
-  height: auto;
-  margin-bottom: -20px;
-  position: relative;
   overflow: hidden;
 }
 
@@ -345,7 +340,7 @@ body, html {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  *behavior: url("../assets/js/vendor/border-box.htc");
+  *behavior: url("assets/js/vendor/border-box.htc");
 }
 
 .row {
@@ -514,9 +509,8 @@ body, html {
 #three {
   position: absolute;
   width: 100%;
-  top: 0px;
+  top: -3px;
   left: 0px;
-  z-index: 999999;
 }
 
 .game-board {
@@ -793,150 +787,5 @@ Changed to Desktop first else we would not be able to have a modular system!
     margin-right: 0;
     *margin-left: -20px;
     display: inline;
-  }
-}
-body {
-  -webkit-transition-property: left;
-  -moz-transition-property: left;
-  -o-transition-property: left;
-  transition-property: left;
-  -webkit-transition-duration: 0.5s;
-  -moz-transition-duration: 0.5s;
-  -o-transition-duration: 0.5s;
-  transition-duration: 0.5s;
-  left: 0px;
-  width: 100%;
-  position: relative;
-}
-body:after {
-  position: absolute;
-  height: 150%;
-  width: 20px;
-  left: -20px;
-  content: ' ';
-  top: -9px;
-  -webkit-box-shadow: inset -8px 0px 10px -4px black;
-  -moz-box-shadow: inset -8px 0px 10px -4px black;
-  box-shadow: inset -8px 0px 10px -4px black;
-}
-
-#main-nav-facebook {
-  min-height: 60px;
-  z-index: 9999999;
-}
-#main-nav-facebook #facebook-nav {
-  width: 100%;
-  left: 0px;
-  position: relative;
-  height: 100%;
-  -webkit-transition-property: left;
-  -moz-transition-property: left;
-  -o-transition-property: left;
-  transition-property: left;
-  -webkit-transition-duration: 0.5s;
-  -moz-transition-duration: 0.5s;
-  -o-transition-duration: 0.5s;
-  transition-duration: 0.5s;
-}
-#main-nav-facebook #facebook-nav ul {
-  padding: 0;
-  margin: 0;
-  background-color: #dddddd;
-  display: block;
-  float: left;
-}
-#main-nav-facebook #facebook-nav ul li {
-  display: block;
-  float: left;
-  margin: 0;
-  border: none;
-  width: auto;
-}
-#main-nav-facebook #facebook-nav ul li a {
-  text-decoration: none;
-  color: #222222;
-  font-size: 1em;
-  line-height: 1.5em;
-  padding: 20px;
-  text-align: center;
-  display: block;
-  float: left;
-  overflow: hidden;
-}
-#main-nav-facebook #facebook-nav ul li a:hover {
-  background-color: #aaaaaa;
-}
-#main-nav-facebook #facebook-nav ul li.last {
-  border: none;
-}
-#main-nav-facebook .nav-controls {
-  float: left;
-  display: none;
-  padding: 10px 0;
-  width: 100%;
-  background-color: #dddddd;
-  left: 0px;
-  position: fixed;
-  z-index: 9999999;
-  -webkit-transition-property: left;
-  -moz-transition-property: left;
-  -o-transition-property: left;
-  transition-property: left;
-  -webkit-transition-duration: 0.5s;
-  -moz-transition-duration: 0.5s;
-  -o-transition-duration: 0.5s;
-  transition-duration: 0.5s;
-}
-#main-nav-facebook .nav-controls a {
-  text-decoration: none;
-  outline: none;
-  width: 40px;
-  height: 40px;
-  background-color: #555555;
-  border: 1px solid black;
-  display: block;
-  float: left;
-  text-indent: 9999px;
-  margin-left: 10px;
-}
-
-body.nav-open {
-  left: 0px;
-}
-
-@media only screen and (max-width: 960px) {
-  body.nav-open {
-    overflow: hidden;
-    left: 250px;
-    position: fixed;
-  }
-  body.nav-open #main-nav-facebook #facebook-nav {
-    left: 0px;
-  }
-  body.nav-open #main-nav-facebook .nav-controls {
-    left: 250px;
-  }
-
-  #main-nav-facebook {
-    margin-bottom: 10px;
-    background-color: #dddddd;
-  }
-  #main-nav-facebook #facebook-nav {
-    position: fixed;
-    left: -250px;
-    width: 250px;
-  }
-  #main-nav-facebook #facebook-nav ul {
-    list-style-type: none;
-  }
-  #main-nav-facebook #facebook-nav ul li {
-    border-bottom: 1px solid white;
-    width: 100%;
-  }
-  #main-nav-facebook #facebook-nav ul li a {
-    width: 100%;
-  }
-  #main-nav-facebook .nav-controls {
-    display: block;
   }
 }
