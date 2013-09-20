@@ -328,6 +328,7 @@ textarea {
 /* ================ MAIN LAYOUT ELEMENTS ================ */
 body, html {
   height: 100%;
+  overflow: hidden;
 }
 
 #site-wrapper {

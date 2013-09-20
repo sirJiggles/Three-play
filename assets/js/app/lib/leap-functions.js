@@ -16,7 +16,7 @@ function palmInteraction(frame){
 
 	for (var i = 0; i < frame.hands.length; i ++){
 		setModelPosition('plane', frame.hands[i].palmPosition);
-		setModelRotation('plane', frame.hands[i].palmNormal);
+		setModelRotation('plane', frame.hands[i].palmNormal, 95);
 	}
 
 }

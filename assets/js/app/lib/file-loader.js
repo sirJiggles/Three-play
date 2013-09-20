@@ -4,10 +4,9 @@
  * @param string filename (file path and name to lookup)
  * @param int scale (size of the model)
  * @param string name (used for ref in appVars)
- * @param string callback (name of the function to call after the model is loaded)
  */
 
-function loadModel(file, scale, name, callback){
+function loadModel(file, scale, rotation, name){
 
 	var loader = new THREE.ColladaLoader();
 
@@ -25,8 +24,12 @@ function loadModel(file, scale, name, callback){
 
 		appVars.models[name] = dae;
 
+		// set the initial rotation of the model before loading to scene
+		dae.rotation.y = rotation * (Math.PI/ 180);
+
+		//dae.applyMatrix( new THREE.Matrix4().makeRotationY( rotation * (Math.PI/ 180) ) );
+
 		appVars.scene.add(dae);
 
-		callback();
 	});
 }

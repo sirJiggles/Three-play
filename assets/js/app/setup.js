@@ -1,5 +1,5 @@
 // load the models first as this will take a while
-loadModel('/assets/models/x-wing.dae', 0.3, 'plane', setupPlane);
+loadModel('/assets/models/x-wing-new.dae', 0.3, 95, 'plane');
 
 
 // add the camera to the scene
@@ -21,10 +21,6 @@ addPointLight(0xFFFFFF, 10, 50, 130);
 // add ten globes to the scene for the fingers and palms
 //addGlobes(12);
 
-function setupPlane(){
-	// set the position of the plane
-	appVars.models['plane'].rotation.y -= 4.6;
-}
 
 
 function start(){
