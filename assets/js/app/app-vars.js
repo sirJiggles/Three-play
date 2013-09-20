@@ -11,7 +11,8 @@ var appVars = {
 	camera: null,
 	scene: new THREE.Scene(),
 	objects: {},
-	models: new Array()
+	models: new Array(),
+	particlesystems: new Array()
 };
 
 appVars.aspect = appVars.width / appVars.height;

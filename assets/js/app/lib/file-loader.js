@@ -20,15 +20,9 @@ function loadModel(file, scale, rotation, name){
 
 		dae.scale.x = dae.scale.y = dae.scale.z = scale;
 
-		dae.position.set( 0, 0, 0 ); 
-
-		appVars.models[name] = dae;
-
-		// set the initial rotation of the model before loading to scene
 		dae.rotation.y = rotation * (Math.PI/ 180);
-
-		//dae.applyMatrix( new THREE.Matrix4().makeRotationY( rotation * (Math.PI/ 180) ) );
-
+		
+		appVars.models[name] = dae;
 		appVars.scene.add(dae);
 
 	});

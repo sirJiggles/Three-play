@@ -21,7 +21,7 @@ function setModelPosition(name, position){
 	appVars.models[name] = model;
 }
 
-function setModelRotation(name, palmNormal, intialY){
+function setModelRotation(name, palmNormal){
 	var model = appVars.models[name];
 
 	if (typeof(model) === 'undefined'){
@@ -29,11 +29,8 @@ function setModelRotation(name, palmNormal, intialY){
 		return;
 	}
 
-	model.rotation.x += palmNormal[0];
-	//model.rotation.y = intialY * (Math.PI/ 180);
-
+	model.rotation.z = palmNormal[0];
 	appVars.models[name] = model;
-
 }
 
 /*

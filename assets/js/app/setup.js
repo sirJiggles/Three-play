@@ -1,5 +1,5 @@
 // load the models first as this will take a while
-loadModel('/assets/models/x-wing-new.dae', 0.3, 95, 'plane');
+loadModel('/assets/models/x-wing.dae', 0.3, 0, 'plane');
 
 
 // add the camera to the scene
@@ -18,15 +18,22 @@ appVars.container.append(appVars.renderer.domElement);
 // create a point light
 addPointLight(0xFFFFFF, 10, 50, 130);
 
-// add ten globes to the scene for the fingers and palms
-//addGlobes(12);
 
+flameOn();
 
 
 function start(){
 
-	var angularSpeed = 0.2; 
-	var lastTime = 0;
+	var stats = new Stats();
+	stats.setMode(1); // 0: fps, 1: ms
+
+	// Align top-left
+	stats.domElement.style.position = 'absolute';
+	stats.domElement.style.left = '0px';
+	stats.domElement.style.top = '0px';
+
+	document.body.appendChild( stats.domElement );
+
 
 	// shim layer with setTimeout fallback
 	window.requestAnimFrame = (function(){
@@ -41,20 +48,14 @@ function start(){
 	(function animloop(){
 		requestAnimFrame(animloop);
 
-		/*var time = (new Date()).getTime(),
-			timeDiff = time - lastTime,
-			angleChange = angularSpeed * timeDiff * 2 * Math.PI / 1000;
+		stats.begin();
 
-		// rotate all the globes on the anmation loop
-		for(var i = 1; i <= appVars.objects.globes.length -1; i ++){
-			appVars.objects.globes[i].rotation.y += angleChange;
-		}
+		// rotate the particle system
+		//appVars.particlesystems['black-flames'].rotation.y += 0.01;
+		moveParticles('black-flames');
 
-		//appVars.models[0].rotation.y += angleChange;
-
-		lastTime = time;
-*/
 		appVars.renderer.render(appVars.scene, appVars.camera);
+		stats.end();
 	})();
 
 }
