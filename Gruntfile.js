@@ -15,6 +15,7 @@ module.exports = function(grunt) {
   		'assets/modules/**/js/*.js', 
   		'assets/js/app/*.js',
   		'assets/js/app/lib/*.js',
+  		'assets/js/app/lib/**/*.js',
   		'assets/navigation/js/*.js');
 
   	// start the config for grunt

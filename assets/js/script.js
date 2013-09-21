@@ -8,25 +8,30 @@
  * @depends vendor/three.js
  * @depends vendor/collada-loader.js
  * @depends vendor/leap-motion.js
+ * @depends vendor/tween.js
  * @depends vendor/sparks.js
  * @depends vendor/stats.js
  * @depends app/app-vars.js
- * @depends app/lib/shape.js
- * @depends app/lib/lights.js
+
+ // Start including libs
  * @depends app/lib/functions.js
- * @depends app/lib/model-operations.js
- * @depends app/lib/object-operations.js
- * @depends app/lib/particles.js
- * @depends app/lib/leap-functions.js
- * @depends app/lib/leap.js
- * @depends app/lib/file-loader.js
+ * @depends app/lib/objects/shapes.js
+ * @depends app/lib/objects/interactions.js
+ * @depends app/lib/models/file-loader.js
+ * @depends app/lib/models/interactions.js
+ * @depends app/lib/leap/leap-utils.js
+ * @depends app/lib/leap/init.js
+ * @depends app/lib/particles/particle.js
+ * @depends app/lib/particles/particle-system.js
+ * @depends app/lib/lights.js
  * @depends app/setup.js
  */
 
 
+
 $(window).load(function () {
 
-
+	// Of we go then ...
     start();
 
 });

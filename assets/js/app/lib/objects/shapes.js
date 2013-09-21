@@ -1,7 +1,10 @@
-// used for creating shapes
+// Shape utils class
 
-function addSphere(rad, seg, rings, mat, dynamic){
-	
+function ShapeUtils(){
+
+}
+
+ShapeUtils.prototype.addSphere = function(rad, seg, rings, mat, dynamic) {
 	var sphere = new THREE.Mesh( 
 		new THREE.SphereGeometry(rad, seg, rings),
 		mat
@@ -14,9 +17,4 @@ function addSphere(rad, seg, rings, mat, dynamic){
 	appVars.scene.add(sphere);
 
 	return sphere;
-}
-
-function addBlock(){
-
-
-}
+};

@@ -1,7 +1,9 @@
+// Class for all the lihgt utils
+function LightUtils(){
 
-// function fo creating point lights
-function addPointLight(color, x, y, z){
-	
+}
+
+LightUtils.prototype.addPointLight = function(color, x, y, z) {
 	var light = new THREE.PointLight(color);
 	
 	// set its position
@@ -13,4 +15,4 @@ function addPointLight(color, x, y, z){
 	appVars.scene.add(light);
 
 	return light;
-}
+};

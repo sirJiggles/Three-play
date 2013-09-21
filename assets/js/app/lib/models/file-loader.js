@@ -1,3 +1,6 @@
+function fileUtils(){
+
+}
 
 /*
  * Generic utils function for loading models from files
@@ -6,10 +9,9 @@
  * @param string name (used for ref in appVars)
  */
 
-function loadModel(file, scale, rotation, name){
-
+fileUtils.prototype.loadModel = function(file, scale, rotation, name) {
+	
 	var loader = new THREE.ColladaLoader();
-
 	var dae;
 
 	loader.options.convertUpAxis = true;
@@ -26,4 +28,4 @@ function loadModel(file, scale, rotation, name){
 		appVars.scene.add(dae);
 
 	});
-}
+};

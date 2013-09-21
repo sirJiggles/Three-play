@@ -1,14 +1,11 @@
-// All leap motion code in here for now
 
-$(window).ready(function(){
+$(window).load(function(){
 	
 	var controller = new Leap.Controller({ enableGestures: true });
-
-	//controller.enable_gesture(Leap.Gesture.Type.KeyTapGesture);
+	var utils = new LeapUtils();
 
 	controller.on('connect', function(){
-
-		
+		// on connect...
 	});
 
 	/*
@@ -16,9 +13,9 @@ $(window).ready(function(){
 	 */
 	controller.on( 'animationFrame' , function( frame ) {
 
-		//fingerInteraction(frame);
-		palmInteraction(frame);
-		//gestureInteraction(frame);
+		//utils.fingerInteraction(frame);
+		utils.palmInteraction(frame);
+		//utils.gestureInteraction(frame);
 
   	});
 

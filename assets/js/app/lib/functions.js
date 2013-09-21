@@ -9,5 +9,43 @@ function logging(msg, data, lvl){
 
 
 function flameOn(){
-	createParticleSystem(200, 0x000000, 5, 50, 200, 'black-flames');
+
+	// create an object that will hold all the params about our particle system 
+	// we want to create
+	var params = {
+		amount:200,
+		color:0x000000,
+		size:5,
+		rangeParams:{
+			xMin:-40,
+			xMax:40,
+			yMin:-40,
+			yMax:40,
+			zMin:30,
+			zMax:100
+		},
+		startPosition: new THREE.Vector3(0, 0, 0),
+		namespace:'black-flames'
+	}
+	// use this object to setup our particle system
+	//createParticleSystem(blackFlames);
+
+	// create a new particle system
+	var blackFlames = new ParticleSystem(params);
+	blackFlames.initSystem();
+
+}
+
+
+// used for logging performance
+function setupStats(){
+
+	appVars.stats.setMode(0); // 0: fps, 1: ms
+
+	// Align top-left
+	appVars.stats.domElement.style.position = 'absolute';
+	appVars.stats.domElement.style.left = '0px';
+	appVars.stats.domElement.style.top = '0px';
+
+	document.body.appendChild( appVars.stats.domElement );
 }

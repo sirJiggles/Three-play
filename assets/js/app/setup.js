@@ -1,5 +1,6 @@
 // load the models first as this will take a while
-loadModel('/assets/models/x-wing.dae', 0.3, 0, 'plane');
+var fileutils = new fileUtils();
+fileutils.loadModel('/assets/models/x-wing.dae', 0.3, 0, 'plane');
 
 
 // add the camera to the scene
@@ -16,24 +17,16 @@ appVars.renderer.setSize(appVars.width, appVars.height);
 appVars.container.append(appVars.renderer.domElement);
 
 // create a point light
-addPointLight(0xFFFFFF, 10, 50, 130);
+var lightUtils = new LightUtils();
+lightUtils.addPointLight(0xFFFFFF, 10, 50, 130);
 
 
 flameOn();
 
+// settup the stats plugin (for performance checking)
+setupStats();
 
 function start(){
-
-	var stats = new Stats();
-	stats.setMode(1); // 0: fps, 1: ms
-
-	// Align top-left
-	stats.domElement.style.position = 'absolute';
-	stats.domElement.style.left = '0px';
-	stats.domElement.style.top = '0px';
-
-	document.body.appendChild( stats.domElement );
-
 
 	// shim layer with setTimeout fallback
 	window.requestAnimFrame = (function(){
@@ -48,14 +41,14 @@ function start(){
 	(function animloop(){
 		requestAnimFrame(animloop);
 
-		stats.begin();
+		appVars.stats.begin();
 
 		// rotate the particle system
 		//appVars.particlesystems['black-flames'].rotation.y += 0.01;
-		moveParticles('black-flames');
+		//moveParticles('black-flames');
 
 		appVars.renderer.render(appVars.scene, appVars.camera);
-		stats.end();
+		appVars.stats.end();
 	})();
 
 }
