@@ -13,16 +13,15 @@ function flameOn(){
 	// create an object that will hold all the params about our particle system 
 	// we want to create
 	var params = {
-		amount:200,
-		color:0x000000,
-		size:5,
+		amount:600,
+		color:0xFFFFFF,
+		size:1,
+		flux:100000,
 		rangeParams:{
-			xMin:-40,
-			xMax:40,
-			yMin:-40,
-			yMax:40,
-			zMin:30,
-			zMax:100
+			x:100,
+			y:20,
+			z:30,
+			initialRad:20
 		},
 		startPosition: new THREE.Vector3(0, 0, 0),
 		namespace:'black-flames'

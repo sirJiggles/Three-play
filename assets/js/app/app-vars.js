@@ -13,7 +13,8 @@ var appVars = {
 	objects: {},
 	models: new Array(),
 	particlesystems: new Array(),
-	stats: new Stats()
+	stats: new Stats(),
+	threexSparks: null
 };
 
 appVars.aspect = appVars.width / appVars.height;

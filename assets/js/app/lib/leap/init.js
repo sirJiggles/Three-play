@@ -8,9 +8,7 @@ $(window).load(function(){
 		// on connect...
 	});
 
-	/*
-	 * This is the core function for the leap controller here we detect whats going on and act on it
-	 */
+
 	controller.on( 'animationFrame' , function( frame ) {
 
 		//utils.fingerInteraction(frame);
@@ -22,5 +20,5 @@ $(window).load(function(){
 
 	// start the leap motion!!!! :D
 	controller.connect();
-
+	
 })

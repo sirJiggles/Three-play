@@ -25,6 +25,7 @@ flameOn();
 
 // settup the stats plugin (for performance checking)
 setupStats();
+appVars.stats.begin();
 
 function start(){
 
@@ -41,14 +42,21 @@ function start(){
 	(function animloop(){
 		requestAnimFrame(animloop);
 
-		appVars.stats.begin();
+		appVars.stats.update();
+
+		//threexSparks && threexSparks.update();
+
+		appVars.particlesystems['black-flames'].updateParticles();
 
 		// rotate the particle system
 		//appVars.particlesystems['black-flames'].rotation.y += 0.01;
 		//moveParticles('black-flames');
 
+		// FIXME this should be INSIDE webgl renderer... bug
+		//appVars.renderer.context.depthMask( true );
+
 		appVars.renderer.render(appVars.scene, appVars.camera);
-		appVars.stats.end();
+		//appVars.stats.end();
 	})();
 
 }

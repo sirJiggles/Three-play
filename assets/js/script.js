@@ -8,8 +8,6 @@
  * @depends vendor/three.js
  * @depends vendor/collada-loader.js
  * @depends vendor/leap-motion.js
- * @depends vendor/tween.js
- * @depends vendor/sparks.js
  * @depends vendor/stats.js
  * @depends app/app-vars.js
 

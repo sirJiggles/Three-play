@@ -1,7 +1,7 @@
 // Particle class (based on https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/js/ParticleEngine.js)
 
-function Particle() {
-	this.position     = new THREE.Vector3();
+function Particle(params) {
+	this.position     = new THREE.Vector3(Math.random()*.5, Math.random()*.5, Math.random()*.5);
 	this.velocity     = new THREE.Vector3(-Math.random(),-Math.random(), -Math.random());
 	this.acceleration = new THREE.Vector3();
 
@@ -9,9 +9,9 @@ function Particle() {
 	this.angleVelocity     = 0; // degrees per second
 	this.angleAcceleration = 0; // degrees per second, per second
 
-	this.size = 5;
+	this.size = params.size;
 
-	this.color   = new THREE.Color();
+	this.color   = params.color;
 	this.opacity = 1.0;
 
 	this.age   = 0;

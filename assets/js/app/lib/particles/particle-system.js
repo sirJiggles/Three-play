@@ -2,10 +2,16 @@
 
 function ParticleSystem(params){
 
-	this.particles = new THREE.Geometry();
-	this.namespace = params.namespace;
-	this.amount = params.amount;
-	this.color = params.color;
+	this.particles 		= new THREE.Geometry();
+	this.namespace 		= params.namespace;
+	this.amount 		= params.amount;
+	this.rangeParams 	= params.rangeParams;
+	this.particleSystem = null;
+	this.pMat = new THREE.ParticleBasicMaterial({
+    	color: params.color,
+    	size: params.size
+  	});
+  	this.flux = params.flux;
 
 }
 
@@ -13,23 +19,77 @@ ParticleSystem.prototype.initSystem = function() {
 
 	// add all the particles 
 	for(var i = 0; i < this.amount; i++) {
-		var particle = new Particle();
-		particle.color = this.color;
-		particle.size = this.size;
+
+		var particle = new THREE.Vector3(
+			Math.random() * this.rangeParams.x - 0, 
+			Math.random() * this.rangeParams.initialRad - (-Math.abs(this.rangeParams.initialRad)), 
+			Math.random() * this.rangeParams.initialRad - (-Math.abs(this.rangeParams.initialRad))
+		);
+      	particle.velocity = new THREE.Vector3(Math.random()*i, Math.random()*i,0);
 		this.particles.vertices.push(particle);
 	}
 
 	// create the particle system
-	var particleSystem = new THREE.ParticleSystem(this.particles);
+	var particleSystem = new THREE.ParticleSystem(this.particles, this.pMat);
 
 	particleSystem.sortParticles = true;
 
 	// add to the scene and out global obj array 
 	appVars.scene.add(particleSystem);
 
+	this.particleSystem = particleSystem;
+
 	// add the particle system to the array of possible particle systems
-	appVars.particlesystems[this.namespace] = particleSystem;
+	appVars.particlesystems[this.namespace] = this;
 }
+
+ParticleSystem.prototype.updateParticles = function() {
+	
+	var pCount = this.amount;
+
+  	while(pCount--) {
+
+		// get the particle
+		var particle = this.particles.vertices[pCount];
+
+		if( particle.x > this.rangeParams.x){
+			// are at the end
+			particle.x = 0;
+			particle.y = this.rangeParams.initialRad - (-Math.abs(this.rangeParams.initialRad))
+			// give x a new random speed and accellaration
+
+		}else{
+			particle.x ++;
+
+			//fan out
+			if(pCount % 4 === 1){
+				particle.y += Math.random() * .1;
+			}
+			if(pCount % 6 === 1){
+				particle.y -= Math.random() * .1;
+			}
+			
+		}
+
+		
+
+
+		/*	
+		if( particle.z > this.rangeParams.zMax){
+			particle.z = 0;
+		}else{
+			// (always come at me bro)
+			particle.z ++;
+		}*/
+
+		// update the velocity with
+		// a splat of randomniz
+		particle.velocity.x -= Math.random() * .1;
+
+	}
+
+	this.particleSystem.geometry.__dirtyVertices = true;
+};
 
 /*
 
