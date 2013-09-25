@@ -11,7 +11,10 @@ core.ParticleSystem = function(params){
     	color: params.color,
     	size: params.size
   	});
-  	this.flux = params.flux;
+  	this.probability = params.probability;
+  	this.multiplier = params.multiplier;
+  	this.direction = params.direction;
+  	this.axises = ['x', 'y', 'z'];
 
 }
 
@@ -20,12 +23,12 @@ core.ParticleSystem.prototype.initSystem = function() {
 	// add all the particles 
 	for(var i = 0; i < this.amount; i++) {
 
+		// put all the particles at the end of the convayer so they get started at the right place
 		var particle = new THREE.Vector3(
-			Math.random() * this.rangeParams.x - 0, 
-			Math.random() * this.rangeParams.initialRad - (-Math.abs(this.rangeParams.initialRad)), 
-			Math.random() * this.rangeParams.initialRad - (-Math.abs(this.rangeParams.initialRad))
-		);
-      	particle.velocity = new THREE.Vector3(Math.random()*i, Math.random()*i,0);
+				this.getRandom(0, this.rangeParams.x), 
+				this.getRandom(0, this.rangeParams.y), 
+				this.getRandom(0, this.rangeParams.z));
+      	particle.velocity = new THREE.Vector3(0,0,0);
 		this.particles.vertices.push(particle);
 	}
 
@@ -38,6 +41,19 @@ core.ParticleSystem.prototype.initSystem = function() {
 	core.scene.add(particleSystem);
 
 	this.particleSystem = particleSystem;
+
+	// remove the axis we do not want to deviate on from the axis array
+	switch(this.direction){
+		case 'x':
+			delete this.axises[0];
+			break;
+		case 'y':
+			delete this.axises[1];
+			break;
+		case 'z':
+			delete this.axises[2];
+			break;
+	}
 
 	// add the particle system to the array of possible particle systems
 	core.particlesystems[this.namespace] = this;
@@ -52,132 +68,45 @@ core.ParticleSystem.prototype.updateParticles = function() {
 		// get the particle
 		var particle = this.particles.vertices[pCount];
 
-		if( particle.x > this.rangeParams.x){
-			// are at the end
-			particle.x = 0;
-			particle.y = this.rangeParams.initialRad - (-Math.abs(this.rangeParams.initialRad))
-			// give x a new random speed and accellaration
+		// if we are at the end of the stream, reset the particle to the start
+		if( particle[this.direction] > this.rangeParams[this.direction]){
+
+			// reset to start
+			particle[this.direction] = 0;
+			
+			// the velocity is what we will use to detect the particles direction during its life time
+			particle.velocity = new THREE.Vector3(this.getRandom(1, -1), this.getRandom(1, -1), this.getRandom(1, -1));
+
+			// set the axisis we are not moving in a direction to have an inital starting position
+			for(var j = 0; j < this.axises.length; j ++){
+				particle[this.axises[j]] = this.getRandom(0, this.rangeParams.initialRad);
+			}
 
 		}else{
-			particle.x ++;
+			particle[this.direction] ++;
 
-			//fan out
-			if(pCount % 4 === 1){
-				particle.y += Math.random() * .1;
+			// detect, using the deviation the value the probability of moving up or down / in or out
+			if(this.getRandom(1, 0) < this.probability){
+				// stay on track
 			}
-			if(pCount % 6 === 1){
-				particle.y -= Math.random() * .1;
+			else{
+				for(var j = 0; j < this.axises.length; j ++){
+					if(particle.velocity[this.axises[j]] > 0){
+						particle[this.axises[j]] += Math.random() * this.multiplier
+					}else{
+						particle[this.axises[j]] -= Math.random() * this.multiplier
+					}
+				}
+				
 			}
 			
 		}
-
-		
-
-
-		/*	
-		if( particle.z > this.rangeParams.zMax){
-			particle.z = 0;
-		}else{
-			// (always come at me bro)
-			particle.z ++;
-		}*/
-
-		// update the velocity with
-		// a splat of randomniz
-		particle.velocity.x -= Math.random() * .1;
 
 	}
 
 	this.particleSystem.geometry.__dirtyVertices = true;
 };
 
-/*
-
-
-function createParticleSystem(systemParams){
-
-	//var counter    = new SPARKS.SteadyCounter( amount );
-	//var emitter   = new SPARKS.Emitter( counter );
-
-	// set up the vars
-	var particles = new THREE.Geometry(),
-    	pMaterial = new THREE.ParticleBasicMaterial({
-        	color: systemParams.color,
-        	size: systemParams.size
-      	});
-
-	// now create the individual particles
-	for(var i = 0; i < systemParams.amount; i++) {
-
-	  // create a particle with random positioning within the constraints passed
-
-
-      // set volocity for particle
-      //particle = systemParams.startPosition;
-      particle = new THREE.Vector3(Math.random()*.1, Math.random()*.1, Math.random()*.1);
-      particle.velocity = new THREE.Vector3(-Math.random(),-Math.random(), -Math.random());
-      particles.vertices.push(particle);
-	}
-
-	
-
+core.ParticleSystem.prototype.getRandom = function(from, to){
+	return Math.random() * (from - to) + to; 
 }
-
-function moveParticles(namespace){
-	
-
-	// get data we will need from the particle system in the global vars
-	var particlesInSystem = appVars.particlesystems[namespace].system.geometry.vertices.length,
-		particles = appVars.particlesystems[namespace].system.geometry,
-		params = appVars.particlesystems[namespace].params;
-
-
-  	while(particlesInSystem--) {
-
-		// get the particle
-		var particle = particles.vertices[particlesInSystem];
-
-		if( particle.x > params.rangeParams.xMax || particle.x < params.rangeParams.xMin){
-			particle.x = 0;
-		}else{
-			if(particlesInSystem % 2 == 1){
-				particle.x ++;
-			}else{
-				particle.x --;
-			}
-		}
-
-		if( particle.y > params.rangeParams.yMax || particle.y < params.rangeParams.yMin){
-			particle.y = 0;
-		}else{
-			if(particlesInSystem % 2 == 1){
-				particle.y ++;
-			}else{
-				particle.y --;
-			}
-		}
-
-
-		if( particle.z > params.rangeParams.zMax){
-			particle.z = 0;
-		}else{
-			// (always come at me bro)
-			particle.z ++;
-		}
-
-		// update the velocity with
-		// a splat of randomniz
-		//particle.velocity.y -= Math.random() * .1;
-
-	}
-
-	// update the actual particles after we have worked on the copy
-	appVars.particlesystems[namespace].system.geometry = particles;
-
-
-	// flag to the particle system that we've changed its vertices.
-	appVars.particlesystems[namespace].system.geometry__dirtyVertices = true;
-
-}
-
-*/

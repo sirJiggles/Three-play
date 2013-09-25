@@ -31,8 +31,8 @@ var core = {
 		);
 
 		// load the models first as this will take a while
-		var fileutils = new core.fileUtils();
-		fileutils.loadModel('/assets/models/x-wing.dae', 0.3, 0, 'plane');
+		//var fileutils = new core.fileUtils();
+		//fileutils.loadModel('/assets/models/x-wing.dae', 0.3, 0, 'plane');
 
 
 		// add the camera to the scene
@@ -75,18 +75,19 @@ var core = {
 		// create an object that will hold all the params about our particle system 
 		// we want to create
 		var params = {
-			amount:600,
-			color:0xFFFFFF,
-			size:1,
-			flux:100000,
+			amount:200,
+			color:0xE8AF10,
+			size:2,
+			probability:0.8,
+			direction:'z',
 			rangeParams:{
-				x:100,
-				y:20,
+				x:200,
+				y:50,
 				z:30,
-				initialRad:20
+				initialRad:5
 			},
-			startPosition: new THREE.Vector3(0, 0, 0),
-			namespace:'black-flames'
+			namespace:'flames',
+			multiplier: .5
 		}
 		// use this object to setup our particle system
 		//createParticleSystem(blackFlames);
@@ -130,7 +131,7 @@ var core = {
 
 			//threexSparks && threexSparks.update();
 
-			core.particlesystems['black-flames'].updateParticles();
+			core.particlesystems['flames'].updateParticles();
 
 			// rotate the particle system
 			//appVars.particlesystems['black-flames'].rotation.y += 0.01;
