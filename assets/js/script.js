@@ -9,10 +9,9 @@
  * @depends vendor/collada-loader.js
  * @depends vendor/leap-motion.js
  * @depends vendor/stats.js
- * @depends app/app-vars.js
 
  // Start including libs
- * @depends app/lib/functions.js
+ * @depends app/lib/core.js
  * @depends app/lib/objects/shapes.js
  * @depends app/lib/objects/interactions.js
  * @depends app/lib/models/file-loader.js
@@ -22,17 +21,12 @@
  * @depends app/lib/particles/particle.js
  * @depends app/lib/particles/particle-system.js
  * @depends app/lib/lights.js
- * @depends app/setup.js
  */
 
+// Create a new instance of the core, all clases are members of core and all core props are global to the whole system
+var core = new Core();
+core.init();
 
-
-$(window).load(function () {
-
-	// Of we go then ...
-    start();
-
-});
 
 // using dat gui
 //https://code.google.com/p/dat-gui/

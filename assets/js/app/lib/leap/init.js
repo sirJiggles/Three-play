@@ -2,7 +2,7 @@
 $(window).load(function(){
 	
 	var controller = new Leap.Controller({ enableGestures: true });
-	var utils = new LeapUtils();
+	var utils = new core.LeapUtils();
 
 	controller.on('connect', function(){
 		// on connect...

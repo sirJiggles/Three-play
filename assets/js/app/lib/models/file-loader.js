@@ -1,15 +1,13 @@
-function fileUtils(){
-
-}
+Core.prototype.fileUtils = function() {};
 
 /*
  * Generic utils function for loading models from files
  * @param string filename (file path and name to lookup)
  * @param int scale (size of the model)
- * @param string name (used for ref in appVars)
+ * @param string name (used for ref in core)
  */
 
-fileUtils.prototype.loadModel = function(file, scale, rotation, name) {
+Core.prototype.fileUtils.prototype.loadModel = function(file, scale, rotation, name) {
 	
 	var loader = new THREE.ColladaLoader();
 	var dae;
@@ -24,8 +22,8 @@ fileUtils.prototype.loadModel = function(file, scale, rotation, name) {
 
 		dae.rotation.y = rotation * (Math.PI/ 180);
 		
-		appVars.models[name] = dae;
-		appVars.scene.add(dae);
+		core.models[name] = dae;
+		core.scene.add(dae);
 
 	});
 };

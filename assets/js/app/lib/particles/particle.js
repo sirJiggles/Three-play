@@ -1,6 +1,6 @@
 // Particle class (based on https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/js/ParticleEngine.js)
 
-function Particle(params) {
+Core.prototype.Particle = function(params) {
 	this.position     = new THREE.Vector3(Math.random()*.5, Math.random()*.5, Math.random()*.5);
 	this.velocity     = new THREE.Vector3(-Math.random(),-Math.random(), -Math.random());
 	this.acceleration = new THREE.Vector3();
@@ -18,7 +18,7 @@ function Particle(params) {
 	this.alive = 0; 
 }
 
-Particle.prototype.update = function(dt){
+Core.prototype.Particle.prototype.update = function(dt){
 
 	this.position.add( this.velocity.clone().multiplyScalar(dt) );
 	this.velocity.add( this.acceleration.clone().multiplyScalar(dt) );

@@ -1,6 +1,6 @@
 // this is where we manage particles
 
-function ParticleSystem(params){
+Core.prototype.ParticleSystem = function(params){
 
 	this.particles 		= new THREE.Geometry();
 	this.namespace 		= params.namespace;
@@ -15,7 +15,7 @@ function ParticleSystem(params){
 
 }
 
-ParticleSystem.prototype.initSystem = function() {
+Core.prototype.ParticleSystem.prototype.initSystem = function() {
 
 	// add all the particles 
 	for(var i = 0; i < this.amount; i++) {
@@ -35,15 +35,15 @@ ParticleSystem.prototype.initSystem = function() {
 	particleSystem.sortParticles = true;
 
 	// add to the scene and out global obj array 
-	appVars.scene.add(particleSystem);
+	core.scene.add(particleSystem);
 
 	this.particleSystem = particleSystem;
 
 	// add the particle system to the array of possible particle systems
-	appVars.particlesystems[this.namespace] = this;
+	core.particlesystems[this.namespace] = this;
 }
 
-ParticleSystem.prototype.updateParticles = function() {
+Core.prototype.ParticleSystem.prototype.updateParticles = function() {
 	
 	var pCount = this.amount;
 

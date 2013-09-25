@@ -1,10 +1,8 @@
 // Shape utils class
 
-function ShapeUtils(){
+Core.prototype.ShapeUtils = function(){}
 
-}
-
-ShapeUtils.prototype.addSphere = function(rad, seg, rings, mat, dynamic) {
+Core.prototype.ShapeUtils.prototype.addSphere = function(rad, seg, rings, mat, dynamic) {
 	var sphere = new THREE.Mesh( 
 		new THREE.SphereGeometry(rad, seg, rings),
 		mat
@@ -14,7 +12,7 @@ ShapeUtils.prototype.addSphere = function(rad, seg, rings, mat, dynamic) {
 		sphere.overdraw = true;
 	}
 	
-	appVars.scene.add(sphere);
+	core.scene.add(sphere);
 
 	return sphere;
 };
