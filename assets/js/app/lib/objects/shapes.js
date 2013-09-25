@@ -1,8 +1,8 @@
 // Shape utils class
 
-Core.prototype.ShapeUtils = function(){}
+core.ShapeUtils = function(){}
 
-Core.prototype.ShapeUtils.prototype.addSphere = function(rad, seg, rings, mat, dynamic) {
+core.ShapeUtils.prototype.addSphere = function(rad, seg, rings, mat, dynamic) {
 	var sphere = new THREE.Mesh( 
 		new THREE.SphereGeometry(rad, seg, rings),
 		mat

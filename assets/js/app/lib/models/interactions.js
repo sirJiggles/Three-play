@@ -1,6 +1,6 @@
 // All of our model operations
 
-Core.prototype.ModelInteraction = function(namespace){
+core.ModelInteraction = function(namespace){
 	this.namespace = namespace;
 }
 
@@ -9,7 +9,7 @@ Core.prototype.ModelInteraction = function(namespace){
  * @param string name (used to ref the model from the appvars array)
  * @param array position (the new position on the stage [x, y, z])
  */ 
-Core.prototype.ModelInteraction.prototype.setPosition = function(position) {
+core.ModelInteraction.prototype.setPosition = function(position) {
 
 	var model = core.models[this.namespace];
 	
@@ -28,7 +28,7 @@ Core.prototype.ModelInteraction.prototype.setPosition = function(position) {
 };
 
 
-Core.prototype.ModelInteraction.prototype.setRotation = function(palmNormal) {
+core.ModelInteraction.prototype.setRotation = function(palmNormal) {
 	var model = core.models[this.namespace];
 
 	if (typeof(model) === 'undefined'){
@@ -46,7 +46,7 @@ Core.prototype.ModelInteraction.prototype.setRotation = function(palmNormal) {
  * function to remove a model from the scene (hide it rather)
  * @param string name (name of the model in the appvars object)
  */
-Core.prototype.ModelInteraction.prototype.hideFromScene = function() {
+core.ModelInteraction.prototype.hideFromScene = function() {
 	var model = core.models[this.namespace];
 
 	if( typeof(model) !== 'undefined'){

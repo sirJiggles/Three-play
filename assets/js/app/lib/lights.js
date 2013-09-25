@@ -1,7 +1,7 @@
 // Class for all the light utils extends core
-Core.prototype.LightUtils = function() {};
+core.LightUtils = function() {};
 
-Core.prototype.LightUtils.prototype.addPointLight = function(color, x, y, z) {
+core.LightUtils.prototype.addPointLight = function(color, x, y, z) {
 	var light = new THREE.PointLight(color);
 	
 	// set its position

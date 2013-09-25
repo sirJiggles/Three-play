@@ -1,7 +1,7 @@
 // Leap utils class
-Core.prototype.LeapUtils = function(){}
+core.LeapUtils = function(){}
 
-Core.prototype.LeapUtils.prototype.fingerInteraction = function(frame){
+core.LeapUtils.prototype.fingerInteraction = function(frame){
 
 	var interaction = new core.ObjectInteraction('globes');
 
@@ -13,7 +13,7 @@ Core.prototype.LeapUtils.prototype.fingerInteraction = function(frame){
 
 }
 
-Core.prototype.LeapUtils.prototype.palmInteraction = function(frame){
+core.LeapUtils.prototype.palmInteraction = function(frame){
 
 	var interaction = new core.ModelInteraction('plane');
 
@@ -25,7 +25,7 @@ Core.prototype.LeapUtils.prototype.palmInteraction = function(frame){
 	}
 }
 
-Core.prototype.LeapUtils.prototype.gestureInteraction = function(frame){
+core.LeapUtils.prototype.gestureInteraction = function(frame){
 	// handle gestures 
 	for( var i =  0; i < frame.gestures.length; i++){
 

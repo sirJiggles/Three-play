@@ -1,9 +1,9 @@
 // Class for object interactions
-Core.prototype.ObjectInteraction = function(namespace){
+core.ObjectInteraction = function(namespace){
 	this.namespace = namespace;
 }
 
-Core.prototype.ObjectInteraction.prototype.setPosition = function(index, position) {
+core.ObjectInteraction.prototype.setPosition = function(index, position) {
 	
 	var objects = core.objects[this.namespace];
 
@@ -21,7 +21,7 @@ Core.prototype.ObjectInteraction.prototype.setPosition = function(index, positio
 
 };
 
-Core.prototype.ObjectInteraction.prototype.hideFromScene = function(index) {
+core.ObjectInteraction.prototype.hideFromScene = function(index) {
 
 	var objects = core.objects[this.namespace];
 

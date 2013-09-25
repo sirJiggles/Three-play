@@ -1,4 +1,4 @@
-Core.prototype.fileUtils = function() {};
+core.fileUtils = function() {};
 
 /*
  * Generic utils function for loading models from files
@@ -7,7 +7,7 @@ Core.prototype.fileUtils = function() {};
  * @param string name (used for ref in core)
  */
 
-Core.prototype.fileUtils.prototype.loadModel = function(file, scale, rotation, name) {
+core.fileUtils.prototype.loadModel = function(file, scale, rotation, name) {
 	
 	var loader = new THREE.ColladaLoader();
 	var dae;

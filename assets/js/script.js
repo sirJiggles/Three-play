@@ -23,8 +23,7 @@
  * @depends app/lib/lights.js
  */
 
-// Create a new instance of the core, all clases are members of core and all core props are global to the whole system
-var core = new Core();
+// init the core
 core.init();
 
 
