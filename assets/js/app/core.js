@@ -75,17 +75,20 @@ var core = {
 		// create an object that will hold all the params about our particle system 
 		// we want to create
 		var params = {
-			amount:200,
+			amount:600,
 			color:0xE8AF10,
-			size:2,
-			probability:0.8,
-			direction:'z',
+			size:10,
+			probability:0.2,
+			direction:'y',
+			speed:100,
+			flux:3,
 			rangeParams:{
-				x:200,
+				x:50,
 				y:50,
 				z:30,
 				initialRad:5
 			},
+			texture: '/assets/img/fire-small.png',
 			namespace:'flames',
 			multiplier: .5
 		}

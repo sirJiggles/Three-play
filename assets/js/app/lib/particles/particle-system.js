@@ -9,16 +9,21 @@ core.ParticleSystem = function(params){
 	this.particleSystem = null;
 	this.pMat = new THREE.ParticleBasicMaterial({
     	color: params.color,
-    	size: params.size
+    	size: params.size,
+    	map: THREE.ImageUtils.loadTexture(params.texture),
+    	blending: THREE.AdditiveBlending,
+    	transparent:true
   	});
   	this.probability = params.probability;
   	this.multiplier = params.multiplier;
   	this.direction = params.direction;
   	this.axises = ['x', 'y', 'z'];
+  	this.speed = params.speed;
 
 }
 
 core.ParticleSystem.prototype.initSystem = function() {
+
 
 	// add all the particles 
 	for(var i = 0; i < this.amount; i++) {
@@ -29,7 +34,14 @@ core.ParticleSystem.prototype.initSystem = function() {
 				this.getRandom(0, this.rangeParams.y), 
 				this.getRandom(0, this.rangeParams.z));
       	particle.velocity = new THREE.Vector3(0,0,0);
+
+      	/*particle.acceleration = new THREE.Vector3(
+      		this.getRandom(0, this.speed),
+      		this.getRandom(0, this.speed),
+      		this.getRandom(0, this.speed)
+  		);*/
 		this.particles.vertices.push(particle);
+
 	}
 
 	// create the particle system

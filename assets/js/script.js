@@ -29,3 +29,12 @@ core.init();
 
 // using dat gui
 //https://code.google.com/p/dat-gui/
+
+// nature of code
+//http://natureofcode.com/book/
+
+// hex gl slides
+//http://www.slideshare.net/thibautfb/html5-game-dev-with-threejs-hexgl
+
+//hex gl source
+//https://github.com/BKcore/HexGL
