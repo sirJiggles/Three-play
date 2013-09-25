@@ -11,7 +11,7 @@
  * @depends vendor/stats.js
 
  // Start including libs
- * @depends app/lib/core.js
+ * @depends app/core.js
  * @depends app/lib/objects/shapes.js
  * @depends app/lib/objects/interactions.js
  * @depends app/lib/models/file-loader.js
