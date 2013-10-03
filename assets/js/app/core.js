@@ -78,13 +78,12 @@ var core = {
 			amount:600,
 			color:0xE8AF10,
 			size:10,
-			probability:0.2,
+			probability:0.3,
 			direction:'y',
 			speed:100,
-			flux:3,
 			rangeParams:{
 				x:50,
-				y:50,
+				y:20,
 				z:30,
 				initialRad:5
 			},
@@ -111,7 +110,6 @@ var core = {
 		document.body.appendChild( core.stats.domElement );
 	},
 
-
 	startRenderer : function(){
 
 		// shim layer with setTimeout fallback
@@ -134,7 +132,7 @@ var core = {
 
 			//threexSparks && threexSparks.update();
 
-			core.particlesystems['flames'].updateParticles();
+			//core.particlesystems['flames'].updateParticles();
 
 			// rotate the particle system
 			//appVars.particlesystems['black-flames'].rotation.y += 0.01;

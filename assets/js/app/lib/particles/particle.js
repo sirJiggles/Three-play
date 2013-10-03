@@ -1,21 +1,18 @@
-// Particle class (based on https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/js/ParticleEngine.js)
+// Class for all the particles
 
 core.Particle = function(params) {
-	this.position     = new THREE.Vector3(Math.random()*.5, Math.random()*.5, Math.random()*.5);
-	this.velocity     = new THREE.Vector3(-Math.random(),-Math.random(), -Math.random());
-	this.acceleration = new THREE.Vector3();
 
-	this.angle             = 0;
-	this.angleVelocity     = 0; // degrees per second
-	this.angleAcceleration = 0; // degrees per second, per second
+	// construct the particle
+	this.age 		= 0,
+	this.position 	= new THREE.Vector3(
+		this.getRandom(0, params.rangeParams.x), 
+		this.getRandom(0, params.rangeParams.y), 
+		this.getRandom(0, params.rangeParams.z)
+	);
+	this.velocity 	= new THREE.Vector3(0,0,0);
+	this.acceleration = new THREE.Vector3(0,0,0);
+	this.alive		= true;
 
-	this.size = params.size;
-
-	this.color   = params.color;
-	this.opacity = 1.0;
-
-	this.age   = 0;
-	this.alive = 0; 
 }
 
 core.Particle.prototype.update = function(dt){

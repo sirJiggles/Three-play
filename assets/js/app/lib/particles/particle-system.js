@@ -2,23 +2,25 @@
 
 core.ParticleSystem = function(params){
 
+	// attempt to merge all the params in here
 	this.particles 		= new THREE.Geometry();
-	this.namespace 		= params.namespace;
-	this.amount 		= params.amount;
-	this.rangeParams 	= params.rangeParams;
+	this.namespace 		= (params.namespace) ? params.namespace : 'none';
+	this.amount 		= (params.amount) ? params.amount : '300';
+	this.rangeParams 	= (params.rangeParams) ? params.rangeParams : {x:50,y:50,z:50};
 	this.particleSystem = null;
 	this.pMat = new THREE.ParticleBasicMaterial({
-    	color: params.color,
-    	size: params.size,
-    	map: THREE.ImageUtils.loadTexture(params.texture),
-    	blending: THREE.AdditiveBlending,
+    	color: 		(params.color) ? params.color : '0x000000',
+    	size: 		(params.size) ? params.size : 20,
+    	map: 		THREE.ImageUtils.loadTexture(params.texture),
+		blending: 	THREE.AdditiveBlending,
     	transparent:true
   	});
-  	this.probability = params.probability;
-  	this.multiplier = params.multiplier;
-  	this.direction = params.direction;
-  	this.axises = ['x', 'y', 'z'];
-  	this.speed = params.speed;
+  	this.probability 	= (params.probability) ? params.probability : 0.2;
+  	this.multiplier 	= (params.multiplier) ? params.multiplier : 0.4;
+  	this.direction 		= (params.direction) ? params.direction : 'y';
+  	this.axises 		= ['x', 'y', 'z'];
+  	this.speed 			= (params.speed) ? params.speed : 20;
+  	this.params 		= params;
 
 }
 
@@ -28,12 +30,7 @@ core.ParticleSystem.prototype.initSystem = function() {
 	// add all the particles 
 	for(var i = 0; i < this.amount; i++) {
 
-		// put all the particles at the end of the convayer so they get started at the right place
-		var particle = new THREE.Vector3(
-				this.getRandom(0, this.rangeParams.x), 
-				this.getRandom(0, this.rangeParams.y), 
-				this.getRandom(0, this.rangeParams.z));
-      	particle.velocity = new THREE.Vector3(0,0,0);
+		var particle = new core.Particle(this.params);
 
       	/*particle.acceleration = new THREE.Vector3(
       		this.getRandom(0, this.speed),
@@ -81,13 +78,16 @@ core.ParticleSystem.prototype.updateParticles = function() {
 		var particle = this.particles.vertices[pCount];
 
 		// if we are at the end of the stream, reset the particle to the start
-		if( particle[this.direction] > this.rangeParams[this.direction]){
+		if( particle[this.direction] > this.rangeParams[this.direction] -2){
 
 			// reset to start
 			particle[this.direction] = 0;
 			
 			// the velocity is what we will use to detect the particles direction during its life time
-			particle.velocity = new THREE.Vector3(this.getRandom(1, -1), this.getRandom(1, -1), this.getRandom(1, -1));
+			particle.velocity = new THREE.Vector3(
+					this.getRandom(1, -1), 
+					this.getRandom(1, -1), 
+					this.getRandom(1, -1));
 
 			// set the axisis we are not moving in a direction to have an inital starting position
 			for(var j = 0; j < this.axises.length; j ++){
