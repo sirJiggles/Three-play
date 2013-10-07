@@ -1,43 +1,43 @@
 // Class for all the particles
 
-core.Particle = function(params) {
+core.Particle = function() {
 
 	// construct the particle
-	this.age 		= 0,
-	this.position 	= new THREE.Vector3(
-		this.getRandom(0, params.rangeParams.x), 
-		this.getRandom(0, params.rangeParams.y), 
-		this.getRandom(0, params.rangeParams.z)
+	this.lifespan 		= 255,
+	this.velocity 		= new THREE.Vector3(
+		this.getRandom(-1, 1), 
+		this.getRandom(-1, 1),
+		this.getRandom(-1, 1)
 	);
-	this.velocity 	= new THREE.Vector3(0,0,0);
-	this.acceleration = new THREE.Vector3(0,0,0);
-	this.alive		= true;
+	this.location 		= new THREE.Vector3(0,0,0);
+	this.acceleration 	= new THREE.Vector3(30,30,0);
+	this.alive			= true;
+	this.mass			= 1;
 
 }
 
 core.Particle.prototype.update = function(dt){
+	// let the force flow down the system
+	this.velocity.add(this.acceleration);
+	this.location.add(this.velocity);
+	// reset acceleration
+	this.acceleration.multiplyScalar(0);
+	this.lifespan -= 2.0;
+}
 
-	this.position.add( this.velocity.clone().multiplyScalar(dt) );
-	this.velocity.add( this.acceleration.clone().multiplyScalar(dt) );
+// run function for the particle
+core.Particle.prototype.run = function(){
+	this.update();
+	//this.display();
+}
 
-	// convert from degrees to radians: 0.01745329251 = Math.PI/180
-	this.angle         += this.angleVelocity     * 0.01745329251 * dt;
-	this.angleVelocity += this.angleAcceleration * 0.01745329251 * dt;
+// this is where we apply any forces to the particle which in turn drives the acceleration
+core.Particle.prototype.applyForce = function(force) {
+	force.divide(this.mass);
+	this.acceleration.add(force);
+};
 
-	this.age += dt;
-
-	// if the tween for a given attribute is nonempty,
-	//  then use it to update the attribute's value
-
-	if ( this.sizeTween.times.length > 0 )
-		this.size = this.sizeTween.lerp( this.age );
-
-	if ( this.colorTween.times.length > 0 )
-	{
-		var colorHSL = this.colorTween.lerp( this.age );
-		this.color = new THREE.Color().setHSL( colorHSL.x, colorHSL.y, colorHSL.z );
-	}
-
-	if ( this.opacityTween.times.length > 0 )
-		this.opacity = this.opacityTween.lerp( this.age );
+// utils funciton to get a random number
+core.Particle.prototype.getRandom = function(from, to){
+	return Math.random() * (from - to) + to; 
 }

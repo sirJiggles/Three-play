@@ -26,21 +26,6 @@ core.ParticleSystem = function(params){
 
 core.ParticleSystem.prototype.initSystem = function() {
 
-
-	// add all the particles 
-	for(var i = 0; i < this.amount; i++) {
-
-		var particle = new core.Particle(this.params);
-
-      	/*particle.acceleration = new THREE.Vector3(
-      		this.getRandom(0, this.speed),
-      		this.getRandom(0, this.speed),
-      		this.getRandom(0, this.speed)
-  		);*/
-		this.particles.vertices.push(particle);
-
-	}
-
 	// create the particle system
 	var particleSystem = new THREE.ParticleSystem(this.particles, this.pMat);
 
@@ -51,74 +36,61 @@ core.ParticleSystem.prototype.initSystem = function() {
 
 	this.particleSystem = particleSystem;
 
-	// remove the axis we do not want to deviate on from the axis array
-	switch(this.direction){
-		case 'x':
-			delete this.axises[0];
-			break;
-		case 'y':
-			delete this.axises[1];
-			break;
-		case 'z':
-			delete this.axises[2];
-			break;
-	}
-
 	// add the particle system to the array of possible particle systems
 	core.particlesystems[this.namespace] = this;
 }
 
-core.ParticleSystem.prototype.updateParticles = function() {
-	
-	var pCount = this.amount;
 
+// function to apply a force to the particle system (this trickles down to a particles acceleration)
+core.ParticleSystem.prototype.applyForce = function(force) {
+
+	var pCount = this.particles.vertices.length;
+
+	// loop through particles and add force
   	while(pCount--) {
-
-		// get the particle
-		var particle = this.particles.vertices[pCount];
-
-		// if we are at the end of the stream, reset the particle to the start
-		if( particle[this.direction] > this.rangeParams[this.direction] -2){
-
-			// reset to start
-			particle[this.direction] = 0;
-			
-			// the velocity is what we will use to detect the particles direction during its life time
-			particle.velocity = new THREE.Vector3(
-					this.getRandom(1, -1), 
-					this.getRandom(1, -1), 
-					this.getRandom(1, -1));
-
-			// set the axisis we are not moving in a direction to have an inital starting position
-			for(var j = 0; j < this.axises.length; j ++){
-				particle[this.axises[j]] = this.getRandom(0, this.rangeParams.initialRad);
-			}
-
-		}else{
-			particle[this.direction] ++;
-
-			// detect, using the deviation the value the probability of moving up or down / in or out
-			if(this.getRandom(1, 0) < this.probability){
-				// stay on track
-			}
-			else{
-				for(var j = 0; j < this.axises.length; j ++){
-					if(particle.velocity[this.axises[j]] > 0){
-						particle[this.axises[j]] += Math.random() * this.multiplier
-					}else{
-						particle[this.axises[j]] -= Math.random() * this.multiplier
-					}
-				}
-				
-			}
-			
-		}
-
+  		var particle = this.particles.vertices[pCount];
+  		particle.applyForce(force);
 	}
 
-	this.particleSystem.geometry.__dirtyVertices = true;
 };
 
-core.ParticleSystem.prototype.getRandom = function(from, to){
-	return Math.random() * (from - to) + to; 
+
+// the draw function for the particle system
+core.ParticleSystem.prototype.draw = function(){
+
+	var gravity = new THREE.Vector3(0,0.1,0);
+	this.applyForce(gravity);
+
+	this.addParticle();
+	this.run();
+
+	this.particleSystem.geometry.__dirtyVertices = true;
+
 }
+
+// function to add a particle to the particle system
+core.ParticleSystem.prototype.addParticle = function() {
+
+	var particle = new core.Particle();
+	this.particles.vertices.push(particle);
+
+};
+
+
+// this will run while we have particles in the system
+core.ParticleSystem.prototype.run = function() {
+	
+	var pCount = this.particles.vertices.length;
+
+	// loop through particles and add force
+  	while(pCount--) {
+  		var particle = this.particles.vertices[pCount];
+  		if(particle.lifespan < 0.0){
+			this.particles.vertices.splice(this.particles.vertices.indexOf(particle),1);
+  		}else{
+  			particle.run();
+  		}
+	}
+
+};
+

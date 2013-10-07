@@ -17,7 +17,6 @@ var core = {
 	models 			: new Array(),
 	particlesystems : new Array(),
 	stats 			: new Stats(),
-	threexSparks 	: null,
 
 	init : function(){
 
@@ -132,7 +131,7 @@ var core = {
 
 			//threexSparks && threexSparks.update();
 
-			//core.particlesystems['flames'].updateParticles();
+			core.particlesystems['flames'].draw();
 
 			// rotate the particle system
 			//appVars.particlesystems['black-flames'].rotation.y += 0.01;
