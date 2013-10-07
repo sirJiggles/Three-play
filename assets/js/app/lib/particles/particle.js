@@ -9,32 +9,23 @@ core.Particle = function() {
 		this.getRandom(-1, 1),
 		this.getRandom(-1, 1)
 	);
-	//this.location 		= new THREE.Vector3(0,0,0);
 	this.acceleration 	= new THREE.Vector3(0,0,0);
-	this.alive			= true;
-	this.mass			= 1;
-
-	this.setX(0);
-	this.setY(0);
-	this.setZ(0);
-
+	this.mass			= 100;
+	this.set(0,0,0);
 }
 
 // this is also a vector 3 (polymorphism)
 core.Particle.prototype = Object.create(THREE.Vector3.prototype);
 
-core.Particle.prototype.update = function(dt){
+core.Particle.prototype.update = function(){
 	// let the force flow down the system
 
 	this.velocity.add(this.acceleration);
-
-	this.setX(this.velocity.x);
-	this.setY(this.velocity.y);
-	this.setZ(this.velocity.z);
-
+	this.add(this.velocity);
 
 	// reset acceleration
 	this.acceleration.multiplyScalar(0);
+	// decrease the lifespan
 	this.lifespan -= 2.0;
 }
 
@@ -46,7 +37,7 @@ core.Particle.prototype.run = function(){
 
 // this is where we apply any forces to the particle which in turn drives the acceleration
 core.Particle.prototype.applyForce = function(force) {
-	//force.divide(this.mass);
+	//force.divideScalar(this.mass);
 	this.acceleration.add(force);
 };
 

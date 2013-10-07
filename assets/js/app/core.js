@@ -30,8 +30,8 @@ var core = {
 		);
 
 		// load the models first as this will take a while
-		var fileutils = new core.fileUtils();
-		fileutils.loadModel('/assets/models/x-wing.dae', 0.3, 0, 'plane');
+		//var fileutils = new core.fileUtils();
+		//fileutils.loadModel('/assets/models/x-wing.dae', 0.3, 0, 'plane');
 
 
 		// add the camera to the scene
@@ -74,24 +74,11 @@ var core = {
 		// create an object that will hold all the params about our particle system 
 		// we want to create
 		var params = {
-			amount:600,
 			color:0xE8AF10,
 			size:10,
-			probability:0.3,
-			direction:'y',
-			speed:100,
-			rangeParams:{
-				x:50,
-				y:20,
-				z:30,
-				initialRad:5
-			},
 			texture: '/assets/img/fire-small.png',
 			namespace:'flames',
-			multiplier: .5
 		}
-		// use this object to setup our particle system
-		//createParticleSystem(blackFlames);
 
 		// create a new particle system
 		var blackFlames = new core.ParticleSystem(params);
@@ -133,9 +120,6 @@ var core = {
 
 			core.particlesystems['flames'].draw();
 
-			// rotate the particle system
-			//appVars.particlesystems['black-flames'].rotation.y += 0.01;
-			//moveParticles('black-flames');
 
 			// FIXME this should be INSIDE webgl renderer... bug
 			//appVars.renderer.context.depthMask( true );
