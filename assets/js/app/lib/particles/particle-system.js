@@ -24,6 +24,7 @@ core.ParticleSystem = function(params){
 
 }
 
+
 core.ParticleSystem.prototype.initSystem = function() {
 
 	// create the particle system
@@ -41,7 +42,7 @@ core.ParticleSystem.prototype.initSystem = function() {
 }
 
 
-// function to apply a force to the particle system (this trickles down to a particles acceleration)
+// function to apply a force to the particle system (this trickles down to a particles location)
 core.ParticleSystem.prototype.applyForce = function(force) {
 
 	var pCount = this.particles.vertices.length;
@@ -58,7 +59,7 @@ core.ParticleSystem.prototype.applyForce = function(force) {
 // the draw function for the particle system
 core.ParticleSystem.prototype.draw = function(){
 
-	var gravity = new THREE.Vector3(0,0.1,0);
+	var gravity = new THREE.Vector3(0,0.5,0);
 	this.applyForce(gravity);
 
 	this.addParticle();

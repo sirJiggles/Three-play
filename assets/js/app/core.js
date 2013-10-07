@@ -30,8 +30,8 @@ var core = {
 		);
 
 		// load the models first as this will take a while
-		//var fileutils = new core.fileUtils();
-		//fileutils.loadModel('/assets/models/x-wing.dae', 0.3, 0, 'plane');
+		var fileutils = new core.fileUtils();
+		fileutils.loadModel('/assets/models/x-wing.dae', 0.3, 0, 'plane');
 
 
 		// add the camera to the scene
