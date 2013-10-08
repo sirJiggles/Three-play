@@ -113,19 +113,12 @@ var core = {
 			// this is now window so use core instance here
 			requestAnimFrame(animloop);
 
-
 			core.stats.update();
-
-			//threexSparks && threexSparks.update();
 
 			core.particlesystems['flames'].draw();
 
-
-			// FIXME this should be INSIDE webgl renderer... bug
-			//appVars.renderer.context.depthMask( true );
-
 			core.renderer.render(core.scene, core.camera);
-			//appVars.stats.end();
+
 		})();
 	}
 }

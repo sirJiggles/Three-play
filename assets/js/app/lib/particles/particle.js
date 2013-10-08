@@ -3,14 +3,14 @@
 core.Particle = function() {
 
 	// construct the particle
-	this.lifespan 		= 255,
+	this.lifespan 		= 255;
 	this.velocity 		= new THREE.Vector3(
-		this.getRandom(-1, 1), 
-		this.getRandom(-1, 1),
-		this.getRandom(-1, 1)
+		this.getRandom(-0.5, 0.5), 
+		this.getRandom(-0.5, 0.5), 
+		this.getRandom(-0.5, 0.5)
 	);
 	this.acceleration 	= new THREE.Vector3(0,0,0);
-	this.mass			= 100;
+	this.mass			= 20.0;
 	this.set(0,0,0);
 }
 
@@ -32,12 +32,24 @@ core.Particle.prototype.update = function(){
 // run function for the particle
 core.Particle.prototype.run = function(){
 	this.update();
-	//this.display();
 }
+
+// reset the particle
+core.Particle.prototype.reset = function() {
+	this.lifespan 		= 255;
+	this.velocity 		= new THREE.Vector3(
+		this.getRandom(-0.5, 0.5), 
+		this.getRandom(-0.5, 0.5), 
+		this.getRandom(-0.5, 0.5)
+	);
+	this.acceleration.multiplyScalar(0);
+	this.mass			= 20.0;
+	this.set(0,0,0);
+};
 
 // this is where we apply any forces to the particle which in turn drives the acceleration
 core.Particle.prototype.applyForce = function(force) {
-	//force.divideScalar(this.mass);
+	force.divideScalar(this.mass);
 	this.acceleration.add(force);
 };
 
