@@ -16,6 +16,8 @@ core.ParticleSystem = function(params){
 						    	//transparent:true
 							});
 
+	this.iterator 		= 1;
+
 }
 
 
@@ -34,7 +36,8 @@ core.ParticleSystem.prototype.initSystem = function() {
 	// add the particle system to the array of possible particle systems
 	core.particlesystems[this.namespace] = this;
 
-	this.addParticle();
+
+	
 }
 
 
@@ -56,16 +59,25 @@ core.ParticleSystem.prototype.draw = function(){
 
 	var gravity = new THREE.Vector3(0,0.1,0);
 	this.applyForce(gravity);
-	// add particle here
 
-	
+	if(this.iterator < 5){
+		this.addParticle();
+	}
+
+	this.iterator ++;
+
+	if(this.iterator == 100){
+		alert('done');
+	}
+
 	this.run();
 }
 
 // function to add a particle to the particle system
 core.ParticleSystem.prototype.addParticle = function() {
 
-	var particle = new core.Particle();
+	var particle = new core.Particle(this.iterator);
+
 	this.particles.vertices.push(particle);
 
 };
@@ -82,7 +94,10 @@ core.ParticleSystem.prototype.run = function() {
 			//this.particles.vertices.splice(pCount,1);
 			this.particles.vertices[pCount].reset();
   		}else{
-  			this.particles.vertices[pCount].run();
+  			this.particles.vertices[pCount].update();
+
+  			//console.log(this.particles.vertices[pCount].ref);
+
   		}
 	}
 
