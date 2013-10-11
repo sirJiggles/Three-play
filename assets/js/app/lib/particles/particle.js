@@ -10,11 +10,11 @@ core.Particle = function(id) {
 		this.getRandom(-0.5, 0.5)
 	);
 	this.acceleration 	= new THREE.Vector3(0,0,0);
-	this.mass			= 20.0;
+	this.mass			= 10.0;
 	this.set(0,0,0);
 	this.ref 			= id;
 
-	console.log('creating particle: '+this.ref);
+	//console.log('creating particle: '+this.ref);
 }
 
 // this is also a vector 3 (polymorphism)
@@ -26,15 +26,13 @@ core.Particle.prototype.update = function(){
 	this.velocity.add(this.acceleration);
 	this.add(this.velocity);
 
-	//this.set(this.ref*10, this.ref+10, this.ref+10);
-
 	// reset acceleration
 	this.acceleration.multiplyScalar(0);
 	// decrease the lifespan
 	this.lifespan -= 2.0;
 
-	if(this.ref == 1){
-		console.log(this);
+	if(this.ref == 1 || this.ref == 2){
+		//console.log(this.y + ' ref: '+this.ref);
 	}
 }
 

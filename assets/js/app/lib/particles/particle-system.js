@@ -3,9 +3,8 @@
 core.ParticleSystem = function(params){
 
 	// attempt to merge all the params in here
-	this.particles 		= new THREE.Geometry({
-		verticesNeedUpdate:true
-	});
+	this.particles 		= new THREE.Geometry();
+	this.particles.dynamic = true;
 	this.namespace 		= (params.namespace) ? params.namespace : 'none';
 	this.particleSystem = null;
 	this.pMat 			= new THREE.ParticleBasicMaterial({
@@ -17,6 +16,7 @@ core.ParticleSystem = function(params){
 							});
 
 	this.iterator 		= 1;
+	this.amount			= params.amount;
 
 }
 
@@ -28,15 +28,17 @@ core.ParticleSystem.prototype.initSystem = function() {
 
 	particleSystem.sortParticles = true;
 
-	// add to the scene and out global obj array 
-	core.scene.add(particleSystem);
-
 	this.particleSystem = particleSystem;
 
+	// add to the scene and out global obj array 
+	core.scene.add(this.particleSystem);
+
 	// add the particle system to the array of possible particle systems
-	core.particlesystems[this.namespace] = this;
+	//core.particlesystems[this.namespace] = this;
 
-
+	for(var i = 0; i < this.amount; i ++){
+		this.addParticle();
+	}
 	
 }
 
@@ -44,11 +46,11 @@ core.ParticleSystem.prototype.initSystem = function() {
 // function to apply a force to the particle system (this trickles down to a particles location)
 core.ParticleSystem.prototype.applyForce = function(force) {
 
-	var pCount = this.particles.vertices.length;
+	var pCount = this.particleSystem.geometry.vertices.length;
 
 	// loop through particles and add force
   	while(pCount--) {
-  		this.particles.vertices[pCount].applyForce(force);
+  		this.particleSystem.geometry.vertices[pCount].applyForce(force);
 	}
 
 };
@@ -57,17 +59,23 @@ core.ParticleSystem.prototype.applyForce = function(force) {
 // the draw function for the particle system
 core.ParticleSystem.prototype.draw = function(){
 
-	var gravity = new THREE.Vector3(0,0.1,0);
-	this.applyForce(gravity);
+	//var gravity = new THREE.Vector3(0,0.5,0);
+	//this.applyForce(gravity);
 
 	if(this.iterator < 5){
 		this.addParticle();
 	}
 
+	/*if(this.iterator == 1){
+		for(i = 0; i < 200; i ++){
+			this.addParticle();
+		}
+	}*/
+
 	this.iterator ++;
 
 	if(this.iterator == 100){
-		alert('done');
+		//alert('done');
 	}
 
 	this.run();
@@ -78,32 +86,35 @@ core.ParticleSystem.prototype.addParticle = function() {
 
 	var particle = new core.Particle(this.iterator);
 
-	this.particles.vertices.push(particle);
-
+	this.particleSystem.geometry.vertices.push(particle);
+	
 };
 
 
 // this will run while we have particles in the system
 core.ParticleSystem.prototype.run = function() {
 	
-	var pCount = this.particles.vertices.length;
+	var pCount = this.particleSystem.geometry.vertices.length;
 
 	// loop through particles and add force
   	while(pCount--) {
-  		if(this.particles.vertices[pCount].lifespan < 0.0){
+  		if(this.particleSystem.geometry.vertices[pCount].lifespan < 0.0){
 			//this.particles.vertices.splice(pCount,1);
-			this.particles.vertices[pCount].reset();
+			this.particleSystem.geometry.vertices[pCount].reset();
+			
   		}else{
-  			this.particles.vertices[pCount].update();
-
+  			//this.particles.vertices[pCount].update();
+  			this.particleSystem.geometry.vertices[pCount].update();
   			//console.log(this.particles.vertices[pCount].ref);
 
   		}
+
 	}
 
-	this.particleSystem.geometry.__dirtyVertices = true;
+	this.particleSystem.geometry.verticesNeedUpdate = true;
 
-	//this.particleSystem.geometry.verticesNeedUpdate = true;
+	//core.particlesystems[this.namespace] = this;
+	
 
 };
 

@@ -1,6 +1,9 @@
 /* 
  * core is an object as we only need one but the functions we later add are members of the object while being proto classes
  */
+
+var blackFlames = '';
+
 var core = {
 
 	// These are the global vars that are acceable from every class
@@ -78,10 +81,11 @@ var core = {
 			size:10,
 			texture: '/assets/img/fire-small.png',
 			namespace:'flames',
+			amount:200,
 		}
 
 		// create a new particle system
-		var blackFlames = new core.ParticleSystem(params);
+		blackFlames = new core.ParticleSystem(params);
 		blackFlames.initSystem();
 	}, 
 
@@ -115,7 +119,10 @@ var core = {
 
 			core.stats.update();
 
-			core.particlesystems['flames'].draw();
+			
+			blackFlames.draw();
+
+			//core.particlesystems['flames'].draw();
 
 			core.renderer.render(core.scene, core.camera);
 
