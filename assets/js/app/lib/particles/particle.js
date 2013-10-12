@@ -1,20 +1,26 @@
 // Class for all the particles
 
-core.Particle = function(id) {
+core.Particle = function(amount, index) {
 
 	// construct the particle
-	this.lifespan 		= 255;
 	this.velocity 		= new THREE.Vector3(
 		this.getRandom(-0.5, 0.5), 
 		this.getRandom(-0.5, 0.5), 
 		this.getRandom(-0.5, 0.5)
 	);
 	this.acceleration 	= new THREE.Vector3(0,0,0);
-	this.mass			= 10.0;
-	this.set(0,0,0);
-	this.ref 			= id;
+	this.mass			= this.getRandom(10.0, 50.0);
+	if(index != 1){
+		// hide of the screen
+		this.set(999999999999999999, 0, 0);
+	}else{
+		this.set(0,0,0);
+	}
+	this.amount			= amount;
 
-	//console.log('creating particle: '+this.ref);
+	// when particles are created we want to 'emit' them in the first run so the first time they are created we will
+	// offset the lifespan and the position (hide them, untill all emited)
+	this.lifespan = (amount - index);
 }
 
 // this is also a vector 3 (polymorphism)
@@ -22,30 +28,26 @@ core.Particle.prototype = Object.create(THREE.Vector3.prototype);
 
 core.Particle.prototype.update = function(){
 	// let the force flow down the system
-
 	this.velocity.add(this.acceleration);
 	this.add(this.velocity);
 
 	// reset acceleration
 	this.acceleration.multiplyScalar(0);
 	// decrease the lifespan
-	this.lifespan -= 2.0;
+	this.lifespan -= 1.0;
 
-	if(this.ref == 1 || this.ref == 2){
-		//console.log(this.y + ' ref: '+this.ref);
-	}
 }
 
 // reset the particle
 core.Particle.prototype.reset = function() {
-	this.lifespan 		= 255;
+	this.lifespan 		= this.amount;
 	this.velocity 		= new THREE.Vector3(
 		this.getRandom(-0.5, 0.5), 
 		this.getRandom(-0.5, 0.5), 
 		this.getRandom(-0.5, 0.5)
 	);
 	this.acceleration.multiplyScalar(0);
-	this.mass			= 20.0;
+	//this.mass			= 20.0;
 	this.set(0,0,0);
 };
 
