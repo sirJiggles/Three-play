@@ -40,7 +40,7 @@ core.ParticleSystem.prototype.initSystem = function() {
 	
 }
 
-// the draw function for the particle system
+// the draw function for the particle system (resets particles that have expired and updates others)
 core.ParticleSystem.prototype.draw = function(){
 
 	var pCount = this.particles.vertices.length;
@@ -48,17 +48,28 @@ core.ParticleSystem.prototype.draw = function(){
 	while(pCount--) {
 
 		if(this.particles.vertices[pCount].lifespan < 0.0){
-
 			this.particles.vertices[pCount].reset();
-
 		}else{
-
-			var gravity = new THREE.Vector3(0,0.5,0);
-
-			this.particles.vertices[pCount].applyForce(gravity);
 			this.particles.vertices[pCount].update();
 		}
   		
+	}
+
+}
+
+// The raason we have this run function is so other types of particle systems can add some customlogic in here
+// without having to re-create the whole draw function
+core.ParticleSystem.prototype.run = function(){
+	// vanilla just call draw for the base particle system
+	this.draw();
+}
+
+// This is to apply forces to a particle system
+core.ParticleSystem.prototype.applyForce = function(force){
+	var pCount = this.particles.vertices.length;
+	while(pCount--) {
+		var forceCopy = new THREE.Vector3(force.x, force.y, force.z);
+		this.particles.vertices[pCount].applyForce(forceCopy);
 	}
 }
 

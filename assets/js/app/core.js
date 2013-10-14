@@ -83,7 +83,8 @@ var core = {
 		}
 
 		// create a new particle system
-		var blackFlames = new core.ParticleSystem(params);
+		var blackFlames = new core.FlameParticles();
+		//var blackFlames = new core.ParticleSystem(params);
 		blackFlames.initSystem();
 	}, 
 
@@ -117,10 +118,7 @@ var core = {
 
 			core.stats.update();
 
-			
-			//blackFlames.draw();
-
-			core.particlesystems['flames'].draw();
+			core.particlesystems['flames'].run();
 
 			core.renderer.render(core.scene, core.camera);
 
