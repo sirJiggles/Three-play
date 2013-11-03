@@ -7,7 +7,7 @@ core.ParticleSystem = function(params){
 	this.namespace 		= (params.namespace) ? params.namespace : 'none';
 	this.particleSystem = null;
 	this.pMat 			= new THREE.ParticleBasicMaterial({
-						    	color: 		(params.color) ? params.color : '0x000000',
+						    	color: 		(params.color) ? params.color : '0xE8AF10',
 						    	size: 		(params.size) ? params.size : 20,
 						    	map: 		THREE.ImageUtils.loadTexture(params.texture),
 								blending: 	THREE.AdditiveBlending,
