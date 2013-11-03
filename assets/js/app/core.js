@@ -9,7 +9,7 @@ var core = {
 	height 			: $(window).height(),
 	viewAngle		: 45,
 	near			: 0.1,
-	far				: 10000,
+	far				: 450,
 	container		: $('#three'),
 	renderer		: new THREE.WebGLRenderer(),
 	camera			: null,
@@ -31,8 +31,8 @@ var core = {
 		);
 
 		// load the models first as this will take a while
-		//var fileutils = new core.fileUtils();
-		//fileutils.loadModel('/assets/models/x-wing.dae', 0.3, 0, 'plane');
+		var fileutils = new core.fileUtils();
+		fileutils.loadModel('/assets/models/x-wing.dae', 0.3, 0, 'plane');
 
 
 		// add the camera to the scene
@@ -53,7 +53,8 @@ var core = {
 		lightUtils.addPointLight(0xFFFFFF, 10, 50, 130);
 
 
-		core.flameOn();
+		//core.flameOn();
+		core.startStars();
 
 		// settup the stats plugin (for performance checking)
 		core.setupStats();
@@ -71,22 +72,16 @@ var core = {
 	},
 
 	flameOn : function() {
-
-		// create an object that will hold all the params about our particle system 
-		// we want to create
-		var params = {
-			color:0xE8AF10,
-			size:5,
-			texture: '/assets/img/fire-small.png',
-			namespace:'flames',
-			amount:300,
-		}
-
 		// create a new particle system
 		var blackFlames = new core.FlameParticles();
 		//var blackFlames = new core.ParticleSystem(params);
 		blackFlames.initSystem();
 	}, 
+
+	startStars : function(){
+		var starSystem = new core.StarParticles();
+		starSystem.initSystem();
+	},
 
 	setupStats : function(){
 		core.stats.setMode(0); // 0: fps, 1: ms
@@ -118,7 +113,8 @@ var core = {
 
 			core.stats.update();
 
-			core.particlesystems['flames'].run();
+			//core.particlesystems['flames'].run();
+			core.particlesystems['stars-one'].run();
 
 			core.renderer.render(core.scene, core.camera);
 

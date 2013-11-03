@@ -7,13 +7,14 @@ core.ParticleSystem = function(params){
 	this.namespace 		= (params.namespace) ? params.namespace : 'none';
 	this.particleSystem = null;
 	this.pMat 			= new THREE.ParticleBasicMaterial({
-						    	color: 		(params.color) ? params.color : '0xE8AF10',
+						    	color: 		(params.color) ? params.color : '0xffffff',
 						    	size: 		(params.size) ? params.size : 20,
 						    	map: 		THREE.ImageUtils.loadTexture(params.texture),
 								blending: 	THREE.AdditiveBlending,
 						    	transparent:true
 							});
-	this.amount			= params.amount;
+	this.amount			= (params.amount) ? params.amount : 200;
+	this.speed			= (params.speed) ? params.speed : 0.5;
 
 }
 
@@ -35,8 +36,10 @@ core.ParticleSystem.prototype.initSystem = function() {
 
 	for(var i = 0; i < this.amount; i ++){
 		// the param is the initial lifespan
-		this.addParticle(this.amount, i);
+		this.addParticle(this.amount, this.speed, i);
 	}
+
+	this.setPosition();
 	
 }
 
@@ -74,9 +77,14 @@ core.ParticleSystem.prototype.applyForce = function(force){
 }
 
 // function to add a particle to the particle system
-core.ParticleSystem.prototype.addParticle = function(amount, index) {
+core.ParticleSystem.prototype.addParticle = function(amount, speed, index) {
 
-	var particle = new core.Particle(amount, index);
+	var particle = new core.Particle(amount, speed, index);
 	this.particles.vertices.push(particle);
 	
 };
+
+// function to set the initial position of the particle system
+core.ParticleSystem.prototype.setPosition = function(){
+	this.particleSystem.position = new THREE.Vector3(0,0,0);
+}

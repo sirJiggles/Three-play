@@ -1,12 +1,14 @@
 // Class for all the particles
 
-core.Particle = function(amount, index) {
+core.Particle = function(amount, speed, index) {
+
+	this.speed = speed;
 
 	// construct the particle
 	this.velocity 		= new THREE.Vector3(
-		this.getRandom(-0.5, 0.5), 
-		this.getRandom(-0.5, 0.5), 
-		this.getRandom(-0.5, 0.5)
+		this.getRandom(-this.speed / 2, this.speed), 
+		this.getRandom(-this.speed / 2, this.speed), 
+		this.getRandom(-this.speed / 2, this.speed)
 	);
 	this.acceleration 	= new THREE.Vector3(0,0,0);
 	this.mass			= this.getRandom(10.0, 50.0);
@@ -42,9 +44,9 @@ core.Particle.prototype.update = function(){
 core.Particle.prototype.reset = function() {
 	this.lifespan 		= this.amount;
 	this.velocity 		= new THREE.Vector3(
-		this.getRandom(-0.5, 0.5), 
-		this.getRandom(-0.5, 0.5), 
-		this.getRandom(-0.5, 0.5)
+		this.getRandom(-this.speed / 2, this.speed), 
+		this.getRandom(-this.speed / 2, this.speed), 
+		this.getRandom(-this.speed / 2, this.speed)
 	);
 	this.acceleration.multiplyScalar(0);
 	//this.mass			= 20.0;

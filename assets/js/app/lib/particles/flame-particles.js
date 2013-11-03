@@ -3,14 +3,14 @@
 core.FlameParticles = function(){
 
 	this.pMat 			= new THREE.ParticleBasicMaterial({
-						color: 		0xE8AF10,
+						//color: 		0xE8AF10,
 				    	size: 		20,
 				    	map: 		THREE.ImageUtils.loadTexture('/assets/img/fire-small.png'),
 						blending: 	THREE.AdditiveBlending,
 				    	transparent:true
 	});
 
-	this.amount 		= 300;
+	this.amount 		= 10;
 	this.namespace 		= 'flames';
 	this.particles 		= new THREE.Geometry();
 	this.particleSystem = null;

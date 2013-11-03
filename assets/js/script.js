@@ -21,6 +21,7 @@
  * @depends app/lib/particles/particle.js
  * @depends app/lib/particles/particle-system.js
  * @depends app/lib/particles/flame-particles.js
+ * @depends app/lib/particles/star-particles.js
  * @depends app/lib/lights.js
  */
 
